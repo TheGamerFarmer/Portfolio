@@ -1,0 +1,10 @@
+ErrorDocument 404 /
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    Options +FollowSymlinks
+    RewriteEngine on
+    RewriteBase /
+    RewriteRule ^$ accueil/accueil.php [L]
+    RewriteRule ^custom$ customPage/custom.php [L]
+</IfModule>
