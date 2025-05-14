@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Raphaël MATHERET</title>
+    <link rel="icon" type="image/x-icon" href="/icone.jpeg">
+    <link rel="stylesheet" href="/accueil/accueil.css">
+</head>
+
+<body>
+    <h1>Raphaël MATHERET</h1>
+    <p id="link">raphael.zron.fr</p>
+    <div id="links">
+        <a href="/cv"><p>C.V.</p></a>
+        <a href="/portfolio"><p>Portfolio</p></a>
+    </div>
+    <img id="imageBasGauche" src="/accueil/image bas gauche.png" alt="image bas gauche">
+    <img id="imageHautDroite" src="/accueil/image haut droite.png" alt="image haut droite">
+</body>
+</html>

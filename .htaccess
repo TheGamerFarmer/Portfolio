@@ -6,5 +6,5 @@ Options -Indexes
     RewriteEngine on
     RewriteBase /
     RewriteRule ^$ accueil/accueil.php [L]
-    RewriteRule ^custom$ customPage/custom.php [L]
+    RewriteRule ^portfolio$ customPage/custom.php [L]
 </IfModule>
