@@ -5,6 +5,8 @@ Options -Indexes
 <IfModule mod_rewrite.c>
     Options +FollowSymlinks
     RewriteEngine on
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
     RewriteBase /
     RewriteRule ^$ accueil/accueil.html [L]
     RewriteRule ^portfolio$ sitePortfolio/aProposDeMoi/aProposDeMoi.php [L]
