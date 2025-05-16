@@ -1,0 +1,76 @@
+main .partie {
+    min-height: 100vh;
+}
+
+main .titre {
+    color: #EAE9C5;
+    text-decoration: underline;
+    font-size: 7em;
+    margin: 0 0 0.5em 1.8em;
+    width: fit-content;
+}
+
+main #presentation {
+    min-height: calc(100vh - 5em);
+    display: flex;
+}
+
+main #presentation #presentation-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: fit-content;
+}
+
+main #presentation #presentation-text h1 {
+    align-self: start;
+}
+
+main #presentation #presentation-text p {
+    color: #6F84D1;
+    font-size: 2em;
+    width: 70%;
+    border: 20px solid #040333;
+    border-image: url("/sitePortfolio/aProposDeMoi/borderPresentation.png") 50 / 1 / 0 round;
+}
+
+main #presentation img {
+    height: calc(100vh - 5em);
+}
+
+main #mesExperiences {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main #mesExperiences h1 {
+    align-self: start;
+}
+
+main #mesExperiences ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 3em;
+}
+
+main #mesExperiences ul li {
+    display: flex;
+    gap: 1em;
+    color: #EAE9C5;
+    width: 40%;
+}
+
+main #mesExperiences ul li .exempleText h2 {
+    font-size: 3em;
+}
+
+main #mesExperiences ul li .exempleText p {
+    font-size: 1.5em;
+}
+
+main #mesExperiences ul li img {
+    height: 4em;
+    margin-top: 2em;
+}

@@ -1,10 +1,11 @@
 ErrorDocument 404 /
+ErrorDocument 403 /
 Options -Indexes
 
 <IfModule mod_rewrite.c>
     Options +FollowSymlinks
     RewriteEngine on
     RewriteBase /
-    RewriteRule ^$ accueil/accueil.php [L]
-    RewriteRule ^portfolio$ customPage/custom.php [L]
+    RewriteRule ^$ accueil/accueil.html [L]
+    RewriteRule ^portfolio$ sitePortfolio/aProposDeMoi/aProposDeMoi.php [L]
 </IfModule>
