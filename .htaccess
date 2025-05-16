@@ -5,6 +5,7 @@ Options -Indexes
 <IfModule mod_rewrite.c>
     Options +FollowSymlinks
     RewriteEngine on
+    RewriteCond %{HTTP_HOST} !^localhost$ [NC]
     RewriteCond %{HTTPS} off
     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
     RewriteBase /
