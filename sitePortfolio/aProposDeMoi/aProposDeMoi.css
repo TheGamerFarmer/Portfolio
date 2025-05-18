@@ -10,9 +10,15 @@ main .titre {
     width: fit-content;
 }
 
+main .imageFond {
+    position: absolute;
+    z-index: -1;
+}
+
 main #presentation {
     min-height: calc(100vh - 5em);
     display: flex;
+    position: relative;
 }
 
 main #presentation #presentation-text {
@@ -20,10 +26,18 @@ main #presentation #presentation-text {
     flex-direction: column;
     align-items: center;
     height: fit-content;
+    position: relative;
 }
 
 main #presentation #presentation-text h1 {
     align-self: start;
+}
+
+main #presentation #presentation-text #empreinteDigitale {
+    height: 13em;
+    rotate: 0deg;
+    top: 3%;
+    right: 4%;
 }
 
 main #presentation #presentation-text p {
@@ -34,14 +48,35 @@ main #presentation #presentation-text p {
     border-image: url("/sitePortfolio/aProposDeMoi/borderPresentation.png") 50 / 1 / 0 round;
 }
 
-main #presentation img {
+main #presentation #selfie {
     height: calc(100vh - 5em);
+}
+
+main .circuitElectric {
+    height: 13em;
+    left: 0;
+}
+
+main #presentation .circuitElectric {
+    bottom: 0;
 }
 
 main #mesExperiences {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+}
+
+main #mesExperiences .circuitElectric {
+    rotate: 90deg;
+    top: 0;
+}
+
+main #mesExperiences #fleche {
+    right: 3%;
+    top: 5%;
+    rotate: 180deg;
 }
 
 main #mesExperiences h1 {
@@ -53,6 +88,7 @@ main #mesExperiences ul {
     flex-wrap: wrap;
     justify-content: space-around;
     gap: 3em;
+    padding: 0 5%;
 }
 
 main #mesExperiences ul li {
@@ -73,4 +109,9 @@ main #mesExperiences ul li .exempleText p {
 main #mesExperiences ul li img {
     height: 4em;
     margin-top: 2em;
+}
+
+main #mesExperiences #engrenage {
+    left: 1%;
+    bottom: 3%;
 }
