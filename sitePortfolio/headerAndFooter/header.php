@@ -1,4 +1,3 @@
-
 <header>
     <div id="header">
         <a href="/">Raphaël MATHERET</a>
