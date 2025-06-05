@@ -1,9 +1,9 @@
 main {
-    font-family: "DM sans", serif;
+    padding-top: 1em;
 }
 
 main .partie {
-    min-height: calc(100vh - 5em);
+    min-height: calc(100vh - 4em);
     position: relative;
 }
 
@@ -13,16 +13,7 @@ main .titre {
     font-size: 7em;
     margin: 0 0 0 1.8em;
     width: fit-content;
-    font-family: "Hagrid", serif;
-}
-
-main .imageFond {
-    position: absolute;
-    z-index: -1;
-}
-
-main .translucide {
-    opacity: 0.7;
+    font-family: Impact, serif;
 }
 
 main #presentation {
@@ -62,7 +53,7 @@ main #presentation #selfie {
 }
 
 main .circuitElectric {
-    height: 22%;
+    height: 25%;
     left: 0;
 }
 
@@ -77,11 +68,11 @@ main #mesExperiences {
 }
 
 main #mesExperiences .circuitElectric {
-    rotate: 90deg;
+    transform: scaleY(-1);
     top: 0;
 }
 
-main #mesExperiences #fleche {
+main #mesExperiences #flecheMesExperiences {
     right: 3%;
     top: 5%;
     rotate: 180deg;
@@ -130,10 +121,10 @@ main #mesLangages #imageLocigielsTravail {
 }
 
 
-main #mesLangages #autreImageLocigielsTravail {
+main #mesLangages #flecheMesLangagges {
     top: 30%;
     left: 4%;
-    width: 15em;
+    width: 8em;
 }
 
 main #mesLangages #ordinateurLogicielTravail {

@@ -1,0 +1,103 @@
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: calc(100vh - 6em);
+    padding-bottom: 1em;
+    position: relative;
+}
+
+main #fleche {
+    top: 5%;
+    right: 1%;
+}
+
+main h1 {
+    color: #EAE9C5;
+    font-size: 5em;
+    padding: 0.1em 1em;
+    margin: 0;
+    border-bottom: 5px solid #EAE9C5;
+    width: fit-content;
+    font-family: Impact, serif;
+}
+
+main #contact {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    margin: 2em 0;
+}
+
+main #contact ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #6F84D1;
+    padding: 1em 2em 1em 3em ;
+    border-radius: 20px;
+    margin: 0;
+    width: 25%;
+}
+
+main #contact ul li {
+    font-size: 1.5em;
+}
+
+main #contact ul li i {
+    font-weight: bold;
+    font-style: normal;
+}
+
+main #formMessage {
+    display: flex;
+    align-items: center;
+}
+
+main #formMessage p {
+    color: #EAE9C5;
+    font-size: 3em;
+    margin: 0 1em;
+}
+
+main #formMessage p + img {
+    transform: scaleX(-1);
+}
+
+main form {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    width: 50%;
+    margin-top: 2%;
+}
+
+main form .textField {
+    height: 2em;
+    width: 100%;
+    border-radius: 10px;
+    padding: 0 1em;
+}
+
+main form textarea {
+    resize: none;
+    min-height: 5em;
+    max-height: 15em;
+    width: 100%;
+    border-radius: 10px;
+    padding: 0.25em 1em;
+    flex-grow: 1;
+}
+
+main form #submit {
+    width: 15%;
+    height: 5em;
+    border-radius: 1000px;
+}
+
+main #imageBasGauche {
+    bottom: -1em;
+    left: 0;
+}

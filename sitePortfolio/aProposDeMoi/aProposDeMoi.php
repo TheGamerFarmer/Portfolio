@@ -6,6 +6,7 @@
     <link rel="icon" type="image/x-icon" href="/icon.jpeg">
     <link rel="stylesheet" href="/sitePortfolio/aProposDeMoi/aProposDeMoi.css">
     <link rel="stylesheet" href="/sitePortfolio/headerAndFooter/headerAndFooter.css">
+    <link rel="stylesheet" href="/sitePortfolio/images/images.css">
 </head>
 
 <body>
@@ -32,7 +33,7 @@
 
     <div id="mesExperiences" class="partie">
         <img class="circuitElectric imageFond translucide" src="/sitePortfolio/aProposDeMoi/circuitElectric.png" alt="circuit électrique">
-        <img id="fleche" class="imageFond translucide" src="/sitePortfolio/aProposDeMoi/fleche.png" alt="fleche">
+        <img id="flecheMesExperiences" class="imageFond translucide" src="/sitePortfolio/images/fleche.png" alt="fleche">
 
         <h1 class="titre">Mes experiences</h1>
         <ul>
@@ -40,7 +41,7 @@
                 <img src="/sitePortfolio/aProposDeMoi/experiencesPrefix.png" alt="Éxpériences préfix">
                 <div class="exempleText">
                     <h2>Weatheria</h2>
-                    <p>Je fais partis de ce projet de serveur Minecraft en tant que développeur. On est une dizaine
+                    <p>Je fais parti de ce projet de serveur Minecraft en tant que développeur. On est une dizaine
                         avec une hiérarchie bien définie pour faciliter l'avancement du projet. On a des réunions
                         hebdomadaires avec notre responsable de pôle et une réunion mensuel pour faire un point interpôles.
                     </p>
@@ -74,7 +75,7 @@
 
     <div id="mesLangages" class="partie">
         <img id="imageLocigielsTravail" class="imageFond translucide" src="/sitePortfolio/aProposDeMoi/imageMesLangages.png" alt="image logiciels travail">
-        <img id="autreImageLocigielsTravail" class="imageFond translucide" src="/sitePortfolio/aProposDeMoi/autreImageMesLangages.png" alt="autre image logiciels travail">
+        <img id="flecheMesLangagges" class="imageFond translucide" src="/sitePortfolio/images/fleche.png" alt="fleche">
         <img id="ordinateurLogicielTravail" class="imageFond" src="/sitePortfolio/aProposDeMoi/ordinateurMesLangages.png" alt="ordinateur logiciels travail">
 
         <h1 class="titre">Mes langages</h1>

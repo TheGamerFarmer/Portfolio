@@ -1,11 +1,12 @@
 body {
     margin: 0;
     background-color: #040333;
+    font-family: Arial, serif;
 }
 
 header {
-    background-color: rgb(12, 0, 33);
-    height: 5em;
+    background-color: #EAE9C5;
+    height: 4em;
     display: flex;
     justify-content: center;
     position: fixed;
@@ -18,23 +19,32 @@ header {
 header #header {
     display: flex;
     align-items: center;
-    gap: 2em;
+    gap: 1em;
     width: 80%;
-    border-bottom: 1px solid white;
-    padding: 0 2em;
-    margin-bottom: 1.5em;
+    border-bottom: 1px solid #040333;
+    padding: 0 1.5em;
+    margin-bottom: 0.5em;
 }
 
-header #header a {
+header #header p a {
     text-decoration: none;
-    color: white;
+    color: #040333;
     font-size: 1.3em;
+    font-weight: bold;
+    padding: 0.3em 0.5em;
+    border-radius: 10px;
+    transition: color ease-in-out 0.1s, background-color ease-in-out 0.1s;
 }
 
-header #header a:first-child {
+header #header p a:hover {
+    background-color: #040333;
+    color: #EAE9C5;
+}
+
+header #header p:first-child {
     flex-grow: 1;
 }
 
 main {
-    margin-top: 5em;
+    margin-top: 4em;
 }

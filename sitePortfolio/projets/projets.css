@@ -1,0 +1,65 @@
+main {
+    padding-top: 1em;
+}
+
+main h1 {
+    color: #EAE9C5;
+    text-decoration: underline;
+    font-size: 7em;
+    margin: 0 0 0.5em 1.8em;
+    width: fit-content;
+    font-family: Impact, serif;
+}
+
+main #projets {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+}
+
+main #projets .projet {
+    background-color: #EAE9C5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2em 5em;
+}
+
+main #projets .projet div.projetDescription {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(100vw - 31em);
+    align-self: stretch;
+    font-size: 1.5em;
+}
+
+main #projets .projet div.projetDescription .title {
+    margin: 0 1em;
+    text-decoration: underline;
+}
+
+main #projets .projet div.projetDescription .title a {
+    color: #040333;
+    font-family: Impact, serif;
+    font-size: 2em;
+}
+
+main #projets .projet div.projetDescription p.description {
+    flex-grow: 1;
+    color: #040333;
+}
+
+main #projets .projet .projetImagesEtVideos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 30em;
+    height: 30em;
+}
+
+main #projets .projet .projetImagesEtVideos video, main #projets .projet .projetImagesEtVideos img {
+    max-width: 100%;
+    max-height: 47%;
+}
