@@ -56,10 +56,10 @@ main #projets .projet .projetImagesEtVideos {
     align-items: center;
     justify-content: space-between;
     width: 30em;
-    height: 30em;
+    height: 15em;
 }
 
 main #projets .projet .projetImagesEtVideos video, main #projets .projet .projetImagesEtVideos img {
     max-width: 100%;
-    max-height: 47%;
+    max-height: 100%;
 }

@@ -7,10 +7,11 @@ function connectDatabase(): PDO {
     return $bdd;
 }
 
-function addProject($projectTitle, $projectDescription, $images, $videos): void {
+function addProject($title, $description, $competences, $objectifs, $travailEnGroupe, $travailIndividuel, $aquis, $images, $videos): void {
     global $bdd;
 
-    $bdd -> query("INSERT INTO projets (title, description) VALUES ('$projectTitle', '$projectDescription')", PDO::FETCH_COLUMN, 1);
+    $bdd -> query("INSERT INTO projets (title, description, competences, objectifs, travail_En_Groupe, travail_individuel, savoir_Faire_Aquis)
+            VALUES ('$title', '$description', '$competences', '$objectifs', '$travailEnGroupe', '$travailIndividuel', '$aquis')");
 
     $projectID = $bdd -> query("SELECT max(projetID) FROM projets") -> fetchColumn();
 

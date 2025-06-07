@@ -1,0 +1,114 @@
+main {
+    display: flex;
+    margin: 3vh 3vw;
+}
+
+main #text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 59vw;
+    padding-right: 2vw;
+}
+
+main #text h1 {
+    color: #EAE9C5;
+    text-decoration: underline;
+    font-size: 7em;
+    font-family: Impact, serif;
+    margin: 0 0 0.25em 0;
+}
+
+main #text h2 {
+    color: #EAE9C5;
+    text-decoration: underline;
+    font-size: 2em;
+    font-family: Impact, serif;
+    align-self: start;
+    margin: 0.5em 0 0 0;
+}
+
+main #text p {
+    color: #6F84D1;
+    font-size: 1.5em;
+    margin: 0;
+    align-self: start;
+}
+
+main #medias {
+    margin-top: 1em;
+    width: 35vw;
+    height: calc(97vh - 5em);
+    position: relative;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: gray;
+}
+
+main #medias, main #medias * {
+    box-sizing: border-box;
+}
+
+main #medias .control-btn {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.4);
+    border: none;
+    padding: 6px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    transition: background 0.3s;
+}
+
+main #medias .control-btn:hover {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+main #medias .control-btn svg {
+    width: 28px;
+    height: 28px;
+    fill: #007bff;
+    pointer-events: none;
+}
+
+main #medias .control-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+main #medias #btnUp {
+    top: 10px;
+}
+
+main #medias #btnDown {
+    bottom: 10px;
+}
+
+main #medias #viewport {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+main #medias #viewport #mediaWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    transition: transform 0.5s ease-in-out;
+}
+
+main #medias #viewport #mediaWrapper .media {
+    width: 100%;
+    height: calc(47.5vh - 2.5em);
+    display: flex;
+    justify-content: center;
+}
+
+main #medias #viewport #mediaWrapper .media img, main #medias #viewport #mediaWrapper .media video {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: cover;
+}

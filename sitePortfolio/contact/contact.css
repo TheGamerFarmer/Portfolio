@@ -38,6 +38,7 @@ main #contact ul {
     border-radius: 20px;
     margin: 0;
     width: 25%;
+    color: #040333;
 }
 
 main #contact ul li {
@@ -47,6 +48,15 @@ main #contact ul li {
 main #contact ul li i {
     font-weight: bold;
     font-style: normal;
+}
+
+main #contact ul li a {
+    color: #040333;
+    transition: color ease-in-out 0.1s;
+}
+
+main #contact ul li a:hover {
+    color: #EAE9C5;
 }
 
 main #formMessage {

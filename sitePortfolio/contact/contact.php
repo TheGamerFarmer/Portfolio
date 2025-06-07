@@ -5,12 +5,13 @@
     <title>Portfolio</title>
     <link rel="icon" type="image/x-icon" href="/icon.jpeg">
     <link rel="stylesheet" href="/sitePortfolio/contact/contact.css">
-    <link rel="stylesheet" href="/sitePortfolio/headerAndFooter/headerAndFooter.css">
+    <link rel="stylesheet" href="/sitePortfolio/header/header.css">
     <link rel="stylesheet" href="/sitePortfolio/images/images.css">
+    <script type="module" src="/sitePortfolio/header/header.js"></script>
 </head>
 
 <body>
-<?php include("../headerAndFooter/header.php") ?>
+<?php include("../header/header.php") ?>
 
 <main>
     <img id="fleche" class="imageFond translucide" src="/sitePortfolio/images/fleche.png" alt="fleche">
@@ -18,12 +19,14 @@
     <h1>Contact</h1>
     <div id="contact">
         <ul>
-            <li><i>Tel: </i>0786870606</li>
             <li><i>Email: </i>prenom.nom@etu.univ-grenoble-alpes.fr</li>
+            <li><i>Adresse: </i>7 impasse du geai, 38410 Saint Martin d'Uriage</li>
         </ul>
         <img src="/sitePortfolio/contact/contactImage.png" alt="Contact image">
         <ul>
-            <li><i>Adresse: </i>7 impasse du geai, 38410 Saint Martin d'Uriage</li>
+            <li><i>Tel: </i>0786870606</li>
+            <li><i>GitHub: </i><a href="https://github.com/TheGamerFarmer">TheGamerFarmer</a></li>
+            <li><i>LinkedIn: </i><a href="https://www.linkedin.com/in/raphael-matheret">Raphaël M</a></li>
         </ul>
     </div>
     <div id="formMessage">

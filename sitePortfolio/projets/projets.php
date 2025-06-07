@@ -5,15 +5,16 @@
     <title>Portfolio</title>
     <link rel="icon" type="image/x-icon" href="/icon.jpeg">
     <link rel="stylesheet" href="/sitePortfolio/projets/projets.css">
-    <link rel="stylesheet" href="/sitePortfolio/headerAndFooter/headerAndFooter.css">
+    <link rel="stylesheet" href="/sitePortfolio/header/header.css">
     <link rel="stylesheet" href="/sitePortfolio/images/images.css">
+    <script type="module" src="/sitePortfolio/header/header.js"></script>
 </head>
 
 <body>
 <?php
     require_once "../../BDD.php";
     $bdd = connectDatabase();
-    include("../headerAndFooter/header.php");
+    include("../header/header.php");
 ?>
 
 <main>
@@ -49,20 +50,14 @@
                 echo "<video controls>
                         <source src='{$video}' type='video/{$extention}'>
                     </video>";
-            }
+            } else {
+                $images = $bdd -> query("SELECT * FROM projetsimages WHERE projetID = '{$projet["projetID"]}'");
 
-            $images = $bdd -> query("SELECT * FROM projetsimages WHERE projetID = '{$projet["projetID"]}'");
+                if ($images -> rowCount() > 0) {
+                    $image = $imagesDir . ($images -> fetchColumn(2));
 
-            if ($images -> rowCount() > 0) {
-                $image = $imagesDir . ($images -> fetchColumn(2));
-
-                echo "<img src='{$image}' alt='{$projet["title"]}'>";
-            }
-
-            if (!$isVideos) {
-                $image = $imagesDir . ($images -> fetchColumn(2));
-
-                echo "<img src='{$image}' alt='{$projet["title"]}'>";
+                    echo "<img src='{$image}' alt='{$projet["title"]}'>";
+                }
             }
 
             echo "</div>

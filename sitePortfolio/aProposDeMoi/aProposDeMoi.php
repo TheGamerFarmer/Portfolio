@@ -5,12 +5,13 @@
     <title>Portfolio</title>
     <link rel="icon" type="image/x-icon" href="/icon.jpeg">
     <link rel="stylesheet" href="/sitePortfolio/aProposDeMoi/aProposDeMoi.css">
-    <link rel="stylesheet" href="/sitePortfolio/headerAndFooter/headerAndFooter.css">
+    <link rel="stylesheet" href="/sitePortfolio/header/header.css">
     <link rel="stylesheet" href="/sitePortfolio/images/images.css">
+    <script type="module" src="/sitePortfolio/header/header.js"></script>
 </head>
 
 <body>
-<?php include("../headerAndFooter/header.php") ?>
+<?php include("../header/header.php") ?>
 
 <main>
     <div id="presentation" class="partie">

@@ -1,0 +1,10 @@
+main #fileInput {
+    display: none;
+}
+
+main #preview {
+    margin-top: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}

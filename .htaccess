@@ -13,4 +13,6 @@ Options -Indexes
     RewriteRule ^portfolio$ sitePortfolio/aProposDeMoi/aProposDeMoi.php [L]
     RewriteRule ^portfolio/contact$ sitePortfolio/contact/contact.php [L]
     RewriteRule ^portfolio/projets$ sitePortfolio/projets/projets.php [L]
+    RewriteRule ^portfolio/projets/.*$ sitePortfolio/projetsDetailles/projetsDetailles.php [L]
+    RewriteRule ^portfolio/nouveauProjet$ sitePortfolio/newProjets/newProjets.php [L]
 </IfModule>
