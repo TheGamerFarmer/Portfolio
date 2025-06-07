@@ -6,8 +6,9 @@ if (getCookie(cookieName) !== loggedCode) {
 
 window.addEventListener("load", () => {
     const fileInput = document.getElementById('fileInput');
-    const buttonFileInput = document.getElementById("buttonFileInput");
+    const buttonFileInput = document.getElementById("fileInputButton");
     const preview = document.getElementById('preview');
+    const formulaire = document.getElementById('formulaire');
     const selectedFiles = [];
 
     buttonFileInput.addEventListener("click", () => {
@@ -18,30 +19,26 @@ window.addEventListener("load", () => {
         const files = Array.from(e.target.files);
 
         for (const file of files) {
-            // Empêche les doublons
             if (selectedFiles.some(f => f.name === file.name && f.lastModified === file.lastModified)) continue;
 
             selectedFiles.push(file);
             const reader = new FileReader();
 
             reader.onload = function (event) {
+                const containerContainer = document.createElement('div');
+                containerContainer.classList.add("mediaContainerContainer");
                 const container = document.createElement('div');
-                container.style.position = 'relative';
+                container.classList.add("mediaContainer");
 
                 const btn = document.createElement('button');
-                btn.textContent = '🗑️';
-                btn.style.position = 'absolute';
-                btn.style.top = '0';
-                btn.style.right = '0';
-                btn.style.background = 'rgba(255,0,0,0.7)';
-                btn.style.color = 'white';
-                btn.style.border = 'none';
-                btn.style.cursor = 'pointer';
+                btn.textContent = '❌';
+                btn.classList.add("suppMedia");
                 btn.onclick = () => {
                     const index = selectedFiles.indexOf(file);
                     if (index > -1) {
                         selectedFiles.splice(index, 1);
-                        preview.removeChild(container);
+                        preview.removeChild(containerContainer);
+                        console.log('Fichier supprimé:', file.name, ', selectedFiles:', selectedFiles);
                     }
                 };
 
@@ -49,40 +46,45 @@ window.addEventListener("load", () => {
                 if (file.type.startsWith('image/')) {
                     media = document.createElement('img');
                     media.src = event.target.result;
-                    media.style.maxHeight = '200px';
                 } else if (file.type.startsWith('video/')) {
                     media = document.createElement('video');
                     media.src = event.target.result;
                     media.controls = true;
-                    media.style.maxHeight = '200px';
                 }
 
                 container.appendChild(media);
                 container.appendChild(btn);
-                preview.appendChild(container);
+                containerContainer.appendChild(container)
+                preview.appendChild(containerContainer);
             };
 
             reader.readAsDataURL(file);
         }
 
-        // Reset input pour pouvoir re-sélectionner les mêmes fichiers si besoin
         fileInput.value = '';
     });
 
-// Formulaire : créer dynamiquement un FormData avec les fichiers sélectionnés
-    document.getElementById('formulaire').addEventListener('submit', function (e) {
-        const formData = new FormData();
+    formulaire.addEventListener('submit', function (e) {
+        e.preventDefault();
 
-        // Ajout des autres champs (exemple)
-        // formData.append('titre', 'titre exemple'); etc.
+        const formData = new FormData(formulaire);
 
-        selectedFiles.forEach((file, i) => {
-            formData.append('medias[]', file); // même nom que côté PHP
+        formData.delete('medias[]');
+        selectedFiles.forEach((file) => {
+            formData.append('medias[]', file);
         });
 
-        void fetch('', {
+        fetch(window.location.href, {
             method: 'POST',
             body: formData
-        });
+        })
+            .then(() => {
+                formulaire.reset();
+                selectedFiles.length = 0;
+                preview.innerHTML = '';
+            })
+            .catch(err => {
+                console.error('Erreur fetch:', err);
+            });
     });
 });

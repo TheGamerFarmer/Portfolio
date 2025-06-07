@@ -2,13 +2,13 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>Portfolio</title>
+    <title>Gestion projets</title>
     <link rel="icon" type="image/x-icon" href="/icon.jpeg">
-    <link rel="stylesheet" href="/sitePortfolio/newProjets/newProjets.css">
+    <link rel="stylesheet" href="/sitePortfolio/gestionProjets/gestionProjets.css">
     <link rel="stylesheet" href="/sitePortfolio/header/header.css">
     <link rel="stylesheet" href="/sitePortfolio/images/images.css">
     <script type="module" src="/sitePortfolio/header/header.js"></script>
-    <script type="module" src="/sitePortfolio/newProjets/newProjets.js"></script>
+    <script type="module" src="/sitePortfolio/gestionProjets/gestionProjets.js"></script>
 </head>
 
 <body>
@@ -22,20 +22,36 @@ include("../header/header.php");
 ?>
 
 <main>
+    <h1>Gestion projets</h1>
     <form id="formulaire" method="POST" action="" enctype="multipart/form-data">
-        <input type="text" name="titre" placeholder="titre" required>
-        <textarea name="description" placeholder="Description" required></textarea>
-        <textarea name="competences" placeholder="Compétences" required></textarea>
-        <textarea name="objectifs" placeholder="Objectifs" required></textarea>
-        <textarea name="travailDeGroupe" placeholder="Travail de groupe" required></textarea>
-        <textarea name="travailIndividuel" placeholder="Travail individuel dans le groupe" required></textarea>
-        <textarea name="aquis" placeholder="Techniques et savoirs faire acquis" required></textarea>
-        <input type="file" name="medias[]" id="fileInput" accept="image/*,video/*" multiple>
-        <button type="button" id="buttonFileInput">Ajouter des fichiers</button>
+        <h2 class="sousTitre">Nouveau projet</h2>
+        <label for="titre">Titre :</label>
+        <input id="titre" type="text" name="titre" placeholder="titre" required>
+
+        <label for="description">Description :</label>
+        <textarea id="description" name="description" placeholder="Description" required></textarea>
+
+        <label for="competences">Compétences :</label>
+        <textarea id="competences" name="competences" placeholder="Compétences" required></textarea>
+
+        <label for="objectifs">Objectifs :</label>
+        <textarea id="objectifs" name="objectifs" placeholder="Objectifs" required></textarea>
+
+        <label for="travailDeGroupe">Travail de groupe :</label>
+        <textarea id="travailDeGroupe" name="travailDeGroupe" placeholder="Travail de groupe" required></textarea>
+
+        <label for="travailIndividuel">Travail individuel dans le groupe :</label>
+        <textarea id="travailIndividuel" name="travailIndividuel" placeholder="Travail individuel dans le groupe" required></textarea>
+
+        <label for="aquis">Techniques et savoirs faire acquis :</label>
+        <textarea id="aquis" name="aquis" placeholder="Techniques et savoirs faire acquis" required></textarea>
+
+        <input id="fileInput" type="file" name="medias[]" accept="image/*,video/*" multiple>
+        <button id="fileInputButton" type="button">Ajouter des images ou vidéos</button>
 
         <div id="preview"></div>
 
-        <input type="submit" value="Envoyer">
+        <input type="submit" value="Enregistrer">
     </form>
 
     <?php

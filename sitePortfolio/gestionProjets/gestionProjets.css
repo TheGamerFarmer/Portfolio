@@ -1,0 +1,212 @@
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main h1 {
+    color: #EAE9C5;
+    font-family: Impact, serif;
+    font-size: 7em;
+    text-decoration: underline;
+    margin: 0 0 0.25em 0;
+}
+
+main .sousTitre {
+    color: #EAE9C5;
+    font-family: Impact, serif;
+    font-size: 3em;
+    text-decoration: underline;
+    margin: 0 0 0.5em 0;
+}
+
+main #formulaire {
+    width: 60%;
+    max-width: 90%; /* large mais pas trop */
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border: 5px solid #6F84D1;
+    border-radius: 20px;
+    padding: 1% 2%;
+}
+
+main #formulaire .sousTitre {
+    align-self: center;
+    margin: 0;
+}
+
+main #formulaire label {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 4px;
+    user-select: none;
+    color: white;
+}
+
+main #formulaire input[type="text"],
+main #formulaire textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    font-size: 1.05rem;
+    font-family: inherit;
+    background-color: white;
+    color: #040333;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+    resize: none; /* interdit redimensionnement textarea */
+}
+
+main #formulaire textarea {
+    min-height: 80px;
+    line-height: 1.4;
+}
+
+main #formulaire input[type="text"]:focus,
+main #formulaire textarea:focus {
+    outline: none;
+    border-color: #5a80f7;
+    box-shadow: 0 0 7px #5a80f7cc;
+}
+
+main #formulaire input[type="file"] {
+    display: none;
+}
+
+main #formulaire #fileInputButton,
+main #formulaire input[type="submit"] {
+    align-self: flex-start;
+    background-color: #6F84D1;
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    user-select: none;
+    box-shadow: 0 3px 5px #4d5f9c99;
+    min-width: 160px;
+}
+
+main #formulaire #fileInputButton:hover,
+main #formulaire input[type="submit"]:hover {
+    background-color: #4a5c9d;
+}
+
+main #formulaire #preview {
+    margin-top: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+main #formulaire #preview .mediaContainerContainer {
+    width: 10vw;
+    height: 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+main #formulaire #preview .mediaContainerContainer .mediaContainer {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+main #formulaire #preview .mediaContainerContainer .mediaContainer img,
+main #formulaire #preview .mediaContainerContainer .mediaContainer video {
+    max-width: 10vw;
+    max-height: 20vh;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 7px #0006 inset;
+}
+
+main #formulaire #preview .mediaContainerContainer .mediaContainer .suppMedia {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: lightgray;
+    opacity: 0.7;
+    border: none;
+    border-radius: 5px;
+    box-shadow: none;
+    height: 1.5vw;
+    width: 3vh;
+    transition: opacity ease-in-out 0.3s;
+    cursor: pointer;
+}
+
+main #formulaire #preview .mediaContainerContainer .mediaContainer .suppMedia:hover {
+     opacity: 1;
+}
+
+main #modificationProjets {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5vh;
+    min-height: calc(100vh - 5em);
+}
+
+main #modificationProjets #projets {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+}
+
+main #modificationProjets #projets .projet {
+    background-color: #EAE9C5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2em 5em;
+}
+
+main #modificationProjets #projets .projet div.projetDescription {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(100vw - 31em);
+    align-self: stretch;
+    font-size: 1.5em;
+}
+
+main #modificationProjets #projets .projet div.projetDescription .title {
+    margin: 0 1em;
+    text-decoration: underline;
+}
+
+main #modificationProjets #projets .projet div.projetDescription .title a {
+    color: #040333;
+    font-family: Impact, serif;
+    font-size: 2em;
+}
+
+main #modificationProjets #projets .projet div.projetDescription p.description {
+    flex-grow: 1;
+    color: #040333;
+}
+
+main #modificationProjets #projets .projet .projetImagesEtVideos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 30em;
+    height: 15em;
+}
+
+main #modificationProjets #projets .projet .projetImagesEtVideos video, main #modificationProjets #projets .projet .projetImagesEtVideos img {
+    max-width: 100%;
+    max-height: 100%;
+}

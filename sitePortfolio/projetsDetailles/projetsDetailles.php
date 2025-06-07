@@ -15,21 +15,18 @@
 <?php
 require_once "../../BDD.php";
 $bdd = connectDatabase();
-include("../header/header.php");
+
+$queryAwser = $bdd -> query("SELECT * FROM projets WHERE projetID = '{$_GET["projetID"]}'") -> getIterator();
+
+if ($queryAwser -> valid()) {
+    $projet = $queryAwser -> current();
+
+    include("../header/header.php");
 ?>
 
 <main>
-    <?php
-    $urlExploded = explode("/",$_SERVER['REQUEST_URI']);
-    $title = end($urlExploded);
-    $queryAwser = $bdd -> query("SELECT * FROM projets WHERE title = '$title'") -> getIterator();
-
-    if ($queryAwser -> valid()) {
-        $projet = $queryAwser -> current();
-        ?>
-
     <div id='text'>
-        <h1><?= $title ?></h1>
+        <h1><?= $projet["title"] ?></h1>
         <p id='description'><?= $projet["description"] ?></p>
         <h2>Les compétances nécessaires:</h2>
         <p id='competances'><?= $projet["competences"] ?></p>
@@ -99,11 +96,15 @@ include("../header/header.php");
             <svg viewBox='0 0 24 24'><path d='M7 10l5 5 5-5z'/></svg>
         </button>
     </div>
-
-    <?php
-    }
-    ?>
 </main>
+
+<?php
+} else {
+    header('Location: /portfolio/projets');
+
+    exit();
+}
+?>
 
 </body>
 </html>

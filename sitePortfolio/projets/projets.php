@@ -29,15 +29,16 @@
 
         while ($projets -> valid()) {
             $projet = $projets -> current();
+            ?>
+        <div class='projet'>
+            <div class='projetDescription'>
+                <h2 class='title'><a href='/portfolio/projets/<?= $projet["title"] ?>?projetID=<?= $projet["projetID"] ?>'><?= $projet["title"] ?></a></h2>
+                <p class='description'><?= $projet["description"] ?></p>
+            </div>
 
-            echo "<div class='projet'>
-                    <div class='projetDescription'>
-                        <h2 class='title'><a href='/portfolio/projets/{$projet["title"]}'>{$projet["title"]}</a></h2>
-                        <p class='description'>{$projet["description"]}</p>
-                    </div>
-                    <div class='projetImagesEtVideos'>
-                ";
+            <div class='projetImagesEtVideos'>
 
+                <?php
             $videos = $bdd -> query("SELECT * FROM projetsvideos WHERE projetID = '{$projet["projetID"]}'");
             $isVideos = $videos -> rowCount() > 0;
 
@@ -46,23 +47,30 @@
 
                 $videoExploded = explode(".", $video);
                 $extention = end($videoExploded);
+                ?>
+                <video controls>
+                    <source src='<?= $video ?>' type='video/<?= $extention ?>'>
+                </video>
 
-                echo "<video controls>
-                        <source src='{$video}' type='video/{$extention}'>
-                    </video>";
+                <?php
             } else {
                 $images = $bdd -> query("SELECT * FROM projetsimages WHERE projetID = '{$projet["projetID"]}'");
 
                 if ($images -> rowCount() > 0) {
                     $image = $imagesDir . ($images -> fetchColumn(2));
+                    ?>
 
-                    echo "<img src='{$image}' alt='{$projet["title"]}'>";
+                <img src='<?= $image ?>' alt='<?= $projet["title"] ?>'>
+
+                <?php
                 }
             }
+            ?>
 
-            echo "</div>
-                </div>";
+            </div>
+        </div>
 
+        <?php
             $projets -> next();
         }
     ?>

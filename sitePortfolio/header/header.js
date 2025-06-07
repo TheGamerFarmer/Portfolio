@@ -15,8 +15,8 @@ window.addEventListener("load", () => {
     errorMsg = document.getElementById("errorMsg");
 
     if (getCookie(cookieName) === loggedCode) {
-        link.textContent = "Nouveau Projet"
-        link.href = "/portfolio/nouveauProjet"
+        link.textContent = "Gestion Projets"
+        link.href = "/portfolio/gestionProjets"
     }
 
     link.addEventListener("click", (e) => {
@@ -33,7 +33,7 @@ window.addEventListener("load", () => {
         if (input.value === correctPassword) {
             setCookie(cookieName, loggedCode, 7);
             modal.style.display = "none";
-            window.location.href = "/portfolio/nouveauProjet";
+            window.location.href = "/portfolio/gestionProjets";
         } else {
             errorMsg.textContent = "Mot de passe incorrect.";
         }
