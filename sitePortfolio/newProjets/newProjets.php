@@ -83,7 +83,24 @@ include("../header/header.php");
             }
         }
 
-        addProject($_POST["titre"], $_POST["description"], $_POST["competences"], $_POST["objectifs"], $_POST["travailDeGroupe"], $_POST["travailIndividuel"], $_POST["aquis"], $imagesNames, $videosNames);
+        $bdd -> query("INSERT INTO projets (title, description, competences, objectifs, travail_En_Groupe, travail_individuel, savoir_Faire_Aquis)
+            VALUES ('{$_POST["titre"]}',
+                    '{$_POST["description"]}',
+                    '{$_POST["competences"]}',
+                    '{$_POST["objectifs"]}',
+                    '{$_POST["travailDeGroupe"]}',
+                    '{$_POST["travailIndividuel"]}',
+                    '{$_POST["aquis"]}')");
+
+        $projectID = $bdd -> query("SELECT max(projetID) FROM projets") -> fetchColumn();
+
+        forEach($imagesNames as $image) {
+            $bdd -> query("INSERT INTO projetsImages (projetID, lienImage) VALUES ('$projectID', '$image')");
+        }
+
+        forEach($videosNames as $video) {
+            $bdd -> query("INSERT INTO projetsVideos (projetID, lienVideo) VALUES ('$projectID', '$video')");
+        }
     }
     ?>
 </main>
