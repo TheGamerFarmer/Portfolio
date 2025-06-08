@@ -50,7 +50,7 @@ if (isset($_POST["projectID"])) {
                    objectifs = '$objectifs',
                    travail_En_Groupe = '$travailDeGroupe',
                    travail_individuel = '$travailIndividuel',
-                   savoir_Faire_Aquis = '$aquis',
+                   savoir_Faire_Aquis = '$aquis'
                WHERE projetID = {$_POST["projectID"]};");
 
     $oldMedias = array_merge($bdd -> query("SELECT * FROM projetsImages WHERE projetID = {$_POST["projectID"]};") -> fetchAll(),
