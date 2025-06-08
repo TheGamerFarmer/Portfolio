@@ -51,7 +51,7 @@ if ($queryAwser -> valid()) {
         $imagesDir = '/sitePortfolio/projets/images/';
         $videosDir = '/sitePortfolio/projets/videos/';
 
-        $videos = $bdd -> query("SELECT * FROM projetsvideos WHERE projetID = '{$projet["projetID"]}'") -> getIterator();
+        $videos = $bdd -> query("SELECT * FROM projetsVideos WHERE projetID = '{$projet["projetID"]}'") -> getIterator();
 
         while ($videos -> valid()) {
             $video = $videos -> current();
@@ -73,7 +73,7 @@ if ($queryAwser -> valid()) {
             $videos -> next();
         }
 
-        $images = $bdd -> query("SELECT * FROM projetsimages WHERE projetID = '{$projet["projetID"]}'") -> getIterator();
+        $images = $bdd -> query("SELECT * FROM projetsImages WHERE projetID = '{$projet["projetID"]}'") -> getIterator();
 
         while ($images -> valid()) {
             $image = $images -> current();

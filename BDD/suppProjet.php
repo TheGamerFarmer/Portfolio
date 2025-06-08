@@ -7,7 +7,7 @@ $bdd -> query("DELETE FROM projets WHERE projetID = " . $_GET['id']);
 $imagesDir = '/sitePortfolio/projets/images/';
 $videosDir = '/sitePortfolio/projets/videos/';
 
-$images = $bdd -> query("SELECT * FROM images WHERE projetID = " . $_GET['id']) -> getIterator();
+$images = $bdd -> query("SELECT * FROM projetsImages WHERE projetID = " . $_GET['id']) -> getIterator();
 
 while ($images -> valid()) {
     $image = $images -> current();
@@ -17,7 +17,7 @@ while ($images -> valid()) {
     $images -> next();
 }
 
-$videos = $bdd -> query("SELECT * FROM videos WHERE projetID = " . $_GET['id']) -> getIterator();
+$videos = $bdd -> query("SELECT * FROM projetsVideos WHERE projetID = " . $_GET['id']) -> getIterator();
 
 while ($videos -> valid()) {
     $video = $videos -> current();
@@ -27,5 +27,5 @@ while ($videos -> valid()) {
     $videos -> next();
 }
 
-$bdd -> query("DELETE FROM projetsimages WHERE projetID = " . $_GET['id']);
-$bdd -> query("DELETE FROM projetsvideos WHERE projetID = " . $_GET['id']);
+$bdd -> query("DELETE FROM projetsImages WHERE projetID = " . $_GET['id']);
+$bdd -> query("DELETE FROM projetsVideos WHERE projetID = " . $_GET['id']);

@@ -39,7 +39,7 @@
             <div class='projetImagesEtVideos'>
 
                 <?php
-            $videos = $bdd -> query("SELECT * FROM projetsvideos WHERE projetID = '{$projet["projetID"]}'");
+            $videos = $bdd -> query("SELECT * FROM projetsVideos WHERE projetID = '{$projet["projetID"]}'");
             $isVideos = $videos -> rowCount() > 0;
 
             if ($isVideos) {
@@ -54,7 +54,7 @@
 
                 <?php
             } else {
-                $images = $bdd -> query("SELECT * FROM projetsimages WHERE projetID = '{$projet["projetID"]}'");
+                $images = $bdd -> query("SELECT * FROM projetsImages WHERE projetID = '{$projet["projetID"]}'");
 
                 if ($images -> rowCount() > 0) {
                     $image = $imagesDir . ($images -> fetchColumn(2));

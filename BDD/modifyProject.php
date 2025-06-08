@@ -42,17 +42,17 @@ if (isset($_POST["projectID"])) {
                    savoir_Faire_Aquis = '{$_POST["aquis"]}'
                WHERE projetID = {$_POST["projectID"]};");
 
-    $oldMedias = array_merge($bdd -> query("SELECT * FROM projetsimages WHERE projetID = {$_POST["projectID"]};") -> fetchAll(),
-        $bdd -> query("SELECT * FROM projetsvideos WHERE projetID = {$_POST["projectID"]};") -> fetchAll());
+    $oldMedias = array_merge($bdd -> query("SELECT * FROM projetsImages WHERE projetID = {$_POST["projectID"]};") -> fetchAll(),
+        $bdd -> query("SELECT * FROM projetsVideos WHERE projetID = {$_POST["projectID"]};") -> fetchAll());
 
     forEach($oldMedias as $oldMedia) {
         $lienMedia = $oldMedia[2];
         if (!in_array($lienMedia, $_POST["oldmedias"])) {
             if (file_exists($uploadDirImages . $lienMedia)) {
-                $bdd -> query("DELETE FROM projetsimages WHERE projetID = {$_POST["projectID"]} AND lienImage = '$lienMedia';");
+                $bdd -> query("DELETE FROM projetsImages WHERE projetID = {$_POST["projectID"]} AND lienImage = '$lienMedia';");
                 unlink($uploadDirImages . $lienMedia);
             } else if (file_exists($uploadDirVideos . $lienMedia)) {
-                $bdd -> query("DELETE FROM projetsvideos WHERE projetID = {$_POST["projectID"]} AND lienVideo = '$lienMedia';");
+                $bdd -> query("DELETE FROM projetsVideos WHERE projetID = {$_POST["projectID"]} AND lienVideo = '$lienMedia';");
                 unlink($uploadDirVideos . $lienMedia);
             }
         }
