@@ -4,16 +4,18 @@ if (getCookie(cookieName) !== loggedCode) {
     window.location.href = "/";
 }
 
-let selectedFiles;
 let preview;
+let formulaire;
+let selectedFiles = [];
+let selectedFilesNames = [];
+
 
 window.addEventListener("load", () => {
     const fileInput = document.getElementById('fileInput');
     const buttonFileInput = document.getElementById("fileInputButton");
     preview = document.getElementById('preview');
-    const formulaire = document.getElementById('formulaire');
+    formulaire = document.getElementById('formulaire');
     const projetsModifButtons = document.querySelectorAll("main #modificationProjets #projets .projet button");
-    selectedFiles = [];
 
     buttonFileInput.addEventListener("click", () => {
         fileInput.click()
@@ -25,7 +27,6 @@ window.addEventListener("load", () => {
         for (const file of files) {
             if (selectedFiles.some(f => f.name === file.name && f.lastModified === file.lastModified)) continue;
 
-            selectedFiles.push(file);
             const reader = new FileReader();
 
             reader.onload = function (event) {
@@ -48,29 +49,7 @@ window.addEventListener("load", () => {
         fileInput.value = '';
     });
 
-    formulaire.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        const formData = new FormData(formulaire);
-
-        formData.delete('medias[]');
-        selectedFiles.forEach((file) => {
-            formData.append('medias[]', file);
-        });
-
-        fetch(window.location.href, {
-            method: 'POST',
-            body: formData
-        })
-            .then(() => {
-                formulaire.reset();
-                selectedFiles.length = 0;
-                preview.innerHTML = '';
-            })
-            .catch(err => {
-                console.error('Erreur fetch:', err);
-            });
-    });
+    formulaire.addEventListener('submit', submitListener);
 
     projetsModifButtons.forEach(button => {
         let id = button.id;
@@ -105,10 +84,44 @@ window.addEventListener("load", () => {
                         const images = json["images"];
                         for (const image in images) {
                             const imageElement = document.createElement('img');
-                            imageElement.src = "/sitePortfolio/projets/images/" + images[image]["lienImage"];
+                            const nomImage = images[image]["lienImage"];
+                            imageElement.src = "/sitePortfolio/projets/images/" + nomImage;
 
-                            addElementInPreview(imageElement);
+                            addElementInPreview(imageElement, nomImage);
                         }
+
+                        formulaire.removeEventListener("submit", submitListener);
+                        formulaire.addEventListener("submit", (e) => {
+                            e.preventDefault()
+
+                            const formData = new FormData(formulaire);
+
+                            formData.set("projectID", projetID);
+
+                            formData.delete('medias[]');
+                            selectedFiles.forEach((file) => {
+                                formData.append('medias[]', file);
+                            });
+
+                            selectedFilesNames.forEach((fileName) => {
+                                formData.append('oldmedias[]', fileName);
+                            });
+
+                            fetch("/BDD/modifyProject.php", {
+                                method: 'POST',
+                                body: formData
+                            })
+                                .then(() => {
+                                    formulaire.reset();
+                                    selectedFiles.length = 0;
+                                    preview.innerHTML = '';
+
+                                    window.location.reload()
+                                })
+                                .catch(err => {
+                                    console.error('Erreur fetch:', err);
+                                });
+                        })
 
                         const cancelButton = document.createElement('button');
                         cancelButton.id = "cancelButton";
@@ -131,16 +144,20 @@ window.addEventListener("load", () => {
 
         } else if (id.startsWith("suppProjet")) {
             button.addEventListener("click", () => {
-                suppProject(projetID);
+                void fetch("/BDD/suppProjet.php?id=" + projetID, {
+                    method: "POST"
+                })
                 button.parentElement.remove();
             });
         }
     })
 });
 
-function addElementInPreview(element, file = null) {
-    if (file != null)
+function addElementInPreview(element, file) {
+    if (file instanceof File)
         selectedFiles.push(file);
+    else
+        selectedFilesNames.push(file);
 
     const containerContainer = document.createElement('div');
     containerContainer.classList.add("mediaContainerContainer");
@@ -151,11 +168,15 @@ function addElementInPreview(element, file = null) {
     btn.textContent = '❌';
     btn.classList.add("suppMedia");
     btn.onclick = () => {
-        if (file != null) {
-            const index = selectedFiles.indexOf(file);
-            if (index > -1) {
-                selectedFiles.splice(index, 1);
-            }
+        let list;
+        if (file instanceof File)
+            list = selectedFiles;
+        else
+            list = selectedFilesNames
+
+        const index = list.indexOf(file);
+        if (index > -1) {
+            list.splice(index, 1);
         }
 
         preview.removeChild(containerContainer);
@@ -168,8 +189,28 @@ function addElementInPreview(element, file = null) {
     preview.appendChild(containerContainer);
 }
 
-function suppProject(projetID) {
-    void fetch("/BDD/suppProjet.php?id=" + projetID, {
-        method: "POST"
+function submitListener (e) {
+    e.preventDefault();
+
+    const formData = new FormData(formulaire);
+
+    formData.delete('medias[]');
+    selectedFiles.forEach((file) => {
+        formData.append('medias[]', file);
+    });
+
+    fetch(window.location.href, {
+        method: 'POST',
+        body: formData
     })
+        .then(() => {
+            formulaire.reset();
+            selectedFiles.length = 0;
+            preview.innerHTML = '';
+
+            window.location.reload()
+        })
+        .catch(err => {
+            console.error('Erreur fetch:', err);
+        });
 }

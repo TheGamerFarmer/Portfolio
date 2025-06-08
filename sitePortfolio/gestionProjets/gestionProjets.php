@@ -13,10 +13,8 @@
 
 <body>
 <?php
-
-use Random\RandomException;
-
-require_once "../../BDD/BDD.php";
+require "../../BDD/generateRandomString.php";
+require "../../BDD/BDD.php";
 $bdd = connectDatabase();
 include("../header/header.php");
 ?>
@@ -56,46 +54,32 @@ include("../header/header.php");
     </form>
 
     <?php
-    function generateRandomString($length = 10): string {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $charactersLength = strlen($characters);
-        $randomString = '';
-
-        for ($i = 0; $i < $length; $i++) {
-            try {
-                $randomString .= $characters[random_int(0, $charactersLength - 1)];
-            } catch (RandomException $e) {
-                echo "<script>console.log('{$e -> getTraceAsString()}');</script>";
-            }
-        }
-
-        return $randomString;
-    }
-
     if (isset($_POST["titre"])) {
         $uploadDirImages = '../projets/images/';
         $imagesNames = [];
         $uploadDirVideos = '../projets/videos/';
         $videosNames = [];
 
-        foreach ($_FILES['medias']['tmp_name'] as $key => $tmpName) {
-            $fileName = generateRandomString() . " " . basename($_FILES['medias']['name'][$key]);
+        if (isset($_FILES['medias'])) {
+            foreach ($_FILES['medias']['tmp_name'] as $key => $tmpName) {
+                $fileName = generateRandomString() . " " . basename($_FILES['medias']['name'][$key]);
 
-            if (empty($tmpName) || !file_exists($tmpName)) {
-                continue;
-            }
-
-            $fileType = mime_content_type($tmpName);
-
-            if (str_starts_with($fileType, 'image')) {
-                $targetFile = $uploadDirImages . $fileName;
-                if (move_uploaded_file($tmpName, $targetFile)) {
-                    $imagesNames[] = $fileName;
+                if (empty($tmpName) || !file_exists($tmpName)) {
+                    continue;
                 }
-            } else if (str_starts_with($fileType, 'video')) {
-                $targetFile = $uploadDirVideos . $fileName;
-                if (move_uploaded_file($tmpName, $targetFile)) {
-                    $videosNames[] = $fileName;
+
+                $fileType = mime_content_type($tmpName);
+
+                if (str_starts_with($fileType, 'image')) {
+                    $targetFile = $uploadDirImages . $fileName;
+                    if (move_uploaded_file($tmpName, $targetFile)) {
+                        $imagesNames[] = $fileName;
+                    }
+                } else if (str_starts_with($fileType, 'video')) {
+                    $targetFile = $uploadDirVideos . $fileName;
+                    if (move_uploaded_file($tmpName, $targetFile)) {
+                        $videosNames[] = $fileName;
+                    }
                 }
             }
         }
