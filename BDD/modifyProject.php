@@ -47,11 +47,12 @@ if (isset($_POST["projectID"])) {
 
     forEach($oldMedias as $oldMedia) {
         $lienMedia = $oldMedia[2];
-        if (!in_array($lienMedia, $_POST["oldmedias"])) {
+
+        if ( !isset($_POST["oldmedias"]) || !in_array($lienMedia, $_POST["oldmedias"])) {
             if (file_exists($uploadDirImages . $lienMedia)) {
                 $bdd -> query("DELETE FROM projetsImages WHERE projetID = {$_POST["projectID"]} AND lienImage = '$lienMedia';");
                 unlink($uploadDirImages . $lienMedia);
-            } else if (file_exists($uploadDirVideos . $lienMedia)) {
+            } else if (!isset($_POST["oldmedias"]) || file_exists($uploadDirVideos . $lienMedia)) {
                 $bdd -> query("DELETE FROM projetsVideos WHERE projetID = {$_POST["projectID"]} AND lienVideo = '$lienMedia';");
                 unlink($uploadDirVideos . $lienMedia);
             }
