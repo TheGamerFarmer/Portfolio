@@ -18,3 +18,11 @@ function generateRandomString($length = 10): string {
 
     return $randomString;
 }
+
+function sanitize($string): string {
+    $string = str_replace("\\", "\\\\", $string);
+    $string = str_replace("'", "\'", $string);
+    $string = str_replace('"', '\"', $string);
+    $string = str_replace("{", "\{", $string);
+    return str_replace("}", "\}", $string);
+}

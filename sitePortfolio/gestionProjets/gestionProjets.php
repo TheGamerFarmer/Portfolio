@@ -13,7 +13,7 @@
 
 <body>
 <?php
-require "../../BDD/generateRandomString.php";
+require "../../BDD/librairie.php";
 require "../../BDD/BDD.php";
 $bdd = connectDatabase();
 include("../header/header.php");
@@ -84,14 +84,22 @@ include("../header/header.php");
             }
         }
 
+        $titre = sanitize($_POST["titre"]);
+        $description = sanitize($_POST["description"]);
+        $competences = sanitize($_POST["competences"]);
+        $objectifs = sanitize($_POST["objectifs"]);
+        $travailDeGroupe = sanitize($_POST["travailDeGroupe"]);
+        $travailIndividuel = sanitize($_POST["travailIndividuel"]);
+        $aquis = sanitize($_POST["aquis"]);
+
         $bdd -> query("INSERT INTO projets (title, description, competences, objectifs, travail_En_Groupe, travail_individuel, savoir_Faire_Aquis)
-            VALUES ('{$_POST["titre"]}',
-                    '{$_POST["description"]}',
-                    '{$_POST["competences"]}',
-                    '{$_POST["objectifs"]}',
-                    '{$_POST["travailDeGroupe"]}',
-                    '{$_POST["travailIndividuel"]}',
-                    '{$_POST["aquis"]}')");
+            VALUES ('$titre',
+                    '$description',
+                    '$competences',
+                    '$objectifs',
+                    '$travailDeGroupe',
+                    '$travailIndividuel',
+                    '$aquis')");
 
         $projectID = $bdd -> query("SELECT max(projetID) FROM projets") -> fetchColumn();
 

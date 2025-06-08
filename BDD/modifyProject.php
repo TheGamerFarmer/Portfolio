@@ -1,6 +1,6 @@
 <?php
 require "BDD.php";
-require "generateRandomString.php";
+require "librairie.php";
 $bdd = connectDatabase();
 
 header('Content-Type: text/html; charset=UTF-8');
@@ -35,13 +35,22 @@ if (isset($_POST["projectID"])) {
         }
     }
 
-    $bdd -> query("UPDATE projets SET title = '{$_POST["titre"]}',
-                   description = '{$_POST["description"]}',
-                   competences = '{$_POST["competences"]}',
-                   objectifs = '{$_POST["objectifs"]}',
-                   travail_En_Groupe = '{$_POST["travailDeGroupe"]}',
-                   travail_individuel = '{$_POST["travailIndividuel"]}',
-                   savoir_Faire_Aquis = '{$_POST["aquis"]}'
+    $titre = sanitize($_POST["titre"]);
+    $description = sanitize($_POST["description"]);
+    $competences = sanitize($_POST["competences"]);
+    $objectifs = sanitize($_POST["objectifs"]);
+    $travailDeGroupe = sanitize($_POST["travailDeGroupe"]);
+    $travailIndividuel = sanitize($_POST["travailIndividuel"]);
+    $aquis = sanitize($_POST["aquis"]);
+
+
+    $bdd -> query("UPDATE projets SET title = '$titre',
+                   description = '$description',
+                   competences = '$competences',
+                   objectifs = '$objectifs',
+                   travail_En_Groupe = '$travailDeGroupe',
+                   travail_individuel = '$travailIndividuel',
+                   savoir_Faire_Aquis = '$aquis',
                WHERE projetID = {$_POST["projectID"]};");
 
     $oldMedias = array_merge($bdd -> query("SELECT * FROM projetsImages WHERE projetID = {$_POST["projectID"]};") -> fetchAll(),
