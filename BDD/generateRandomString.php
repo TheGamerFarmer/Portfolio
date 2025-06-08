@@ -1,6 +1,8 @@
 <?php
 use Random\RandomException;
 
+header('Content-Type: text/html; charset=UTF-8');
+
 function generateRandomString($length = 10): string {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);

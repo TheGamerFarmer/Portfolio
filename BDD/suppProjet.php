@@ -2,6 +2,8 @@
 require_once "BDD.php";
 $bdd = connectDatabase();
 
+header('Content-Type: text/html; charset=UTF-8');
+
 $bdd -> query("DELETE FROM projets WHERE projetID = " . $_GET['id']);
 
 $imagesDir = '/sitePortfolio/projets/images/';
