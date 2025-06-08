@@ -172,11 +172,15 @@ main #modificationProjets {
     min-height: calc(100vh - 5em);
 }
 
+main #modificationProjets h2 {
+    font-size: 5em;
+}
+
 main #modificationProjets #projets {
     display: flex;
-    flex-direction: column;
-    gap: 5vh;
-    width: 40vw;
+    justify-content: space-between;
+    gap: 5vh 10vw;
+    width: 90vw;
 }
 
 main #modificationProjets #projets .projet {
@@ -185,6 +189,8 @@ main #modificationProjets #projets .projet {
     align-items: center;
     justify-content: center;
     padding: 1em 2em;
+    border-radius: 20px;
+    width: 40vw;
 }
 
 main #modificationProjets #projets .projet button {

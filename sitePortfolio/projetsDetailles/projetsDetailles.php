@@ -28,13 +28,13 @@ if ($queryAwser -> valid()) {
     <div id='text'>
         <h1><?= $projet["title"] ?></h1>
         <p id='description'><?= $projet["description"] ?></p>
-        <h2>Les compétances nécessaires:</h2>
+        <h2>Les compétences nécessaires:</h2>
         <p id='competances'><?= $projet["competences"] ?></p>
         <h2>Les objectifs du projet:</h2>
         <p id='objectifs'><?= $projet["objectifs"] ?></p>
         <h2>Les étapes du groupe:</h2>
         <p id='travailGroupe'><?= $projet["travail_En_Groupe"] ?></p>
-        <h2>Ma partie du travaille:</h2>
+        <h2>Ma partie du travail:</h2>
         <p id='travailIndividuel'><?= $projet["travail_individuel"] ?></p>
         <h2>Les savoirs faires aquis grâce à ce projet:</h2>
         <p id='aquis'><?= $projet["savoir_Faire_Aquis"] ?></p>

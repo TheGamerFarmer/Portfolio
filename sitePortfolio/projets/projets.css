@@ -18,7 +18,7 @@ main #projets {
 }
 
 main #projets .projet {
-    background-color: #EAE9C5;
+    background-color: #6F84D1;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -36,13 +36,26 @@ main #projets .projet div.projetDescription {
 
 main #projets .projet div.projetDescription .title {
     margin: 0 1em;
-    text-decoration: underline;
+    background-color: #040333;
+    border-radius: 20px;
+    padding: 0.25em 0.5em;
+    box-shadow: #040333 2px 2px 3px;
+    transition: background-color ease-in-out 0.3s;
 }
 
 main #projets .projet div.projetDescription .title a {
-    color: #040333;
     font-family: Impact, serif;
     font-size: 2em;
+    color: #EAE9C5;
+    transition: color ease-in-out 0.3s;
+}
+
+main #projets .projet div.projetDescription .title:hover {
+    background-color: #EAE9C5;
+}
+
+main #projets .projet div.projetDescription .title:hover a {
+    color: #040333;
 }
 
 main #projets .projet div.projetDescription p.description {
@@ -62,4 +75,5 @@ main #projets .projet .projetImagesEtVideos {
 main #projets .projet .projetImagesEtVideos video, main #projets .projet .projetImagesEtVideos img {
     max-width: 100%;
     max-height: 100%;
+    border-radius: 20px;
 }

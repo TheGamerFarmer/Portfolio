@@ -103,8 +103,6 @@ window.addEventListener("load", () => {
                             document.body.scrollTop = 0;
                             document.documentElement.scrollTop = 0;
 
-
-
                             formulaire.removeEventListener("submit", submitModify);
                             formulaire.addEventListener("submit", submitAdd);
                             formulaire.reset()

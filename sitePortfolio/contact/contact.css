@@ -52,6 +52,7 @@ main #contact ul li i {
 
 main #contact ul li a {
     color: #040333;
+    font-style: italic;
     transition: color ease-in-out 0.1s;
 }
 
