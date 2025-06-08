@@ -54,9 +54,9 @@ window.addEventListener("load", () => {
 
     projetsModifButtons.forEach(button => {
         let id = button.id;
-        projetID = id.split(":").reverse().at(0);
         if (id.startsWith("modifyProjet")) {
             button.addEventListener("click", () => {
+                projetID = id.split(":").reverse().at(0);
                 fetch("/BDD/getProjet.php?id=" + projetID)
                     .then(res => res.json())
                     .then(json => {
@@ -117,6 +117,7 @@ window.addEventListener("load", () => {
 
         } else if (id.startsWith("suppProjet")) {
             button.addEventListener("click", () => {
+                projetID = id.split(":").reverse().at(0);
                 void fetch("/BDD/suppProjet.php?id=" + projetID, {
                     method: "POST"
                 })
