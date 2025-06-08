@@ -44,6 +44,10 @@
 
     <?php
     if (isset($_POST["message"])) {
+        mail("nicolas.hili@univ-grenoble-alpes.fr",
+            "Porfolio: " . $_POST["nom"],
+            $_POST["message"],
+            "From:portfolio@raphael.zron.fr\r\nReply-To:" . $_POST["email"]);
         mail("raphaelmatheret@gmail.com",
             "Porfolio: " . $_POST["nom"],
             $_POST["message"],
