@@ -8,8 +8,8 @@ $projetVideos = $bdd -> query("SELECT * FROM projetsvideos WHERE projetID = " . 
 
 $toReturn = array(
     "projet" => $projet -> fetchAll(),
-    "images" => $projetImages -> fetchAll(),
-    "videos" => $projetVideos -> fetchAll(),
+    "images" => ($projetImages -> rowCount() > 0 ? $projetImages -> fetchAll() : array()),
+    "videos" => ($projetVideos -> rowCount() > 0 ? $projetVideos -> fetchAll() : array()),
 );
 
 echo json_encode($toReturn, JSON_PRETTY_PRINT);
