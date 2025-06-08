@@ -85,8 +85,9 @@ main #mesExperiences h1 {
 main #mesExperiences ul {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 3em;
+    width: 70vw;
+    justify-content: space-between;
+    gap: 3vh 3vw;
     padding: 0 7%;
 }
 
@@ -94,20 +95,31 @@ main #mesExperiences ul li {
     display: flex;
     gap: 1em;
     color: #EAE9C5;
-    width: 40%;
+    width: 32vw;
 }
 
 main #mesExperiences ul li .exempleText h2 {
     font-size: 3em;
+    margin: 0.5em 0 0 0;
 }
 
 main #mesExperiences ul li .exempleText p {
     font-size: 1.5em;
+    margin: 0.5em 0;
+}
+
+main #mesExperiences ul li .exempleText a {
+    color: #6F84D1;
+    transition: color ease-in-out 0.1s;
+}
+
+main #mesExperiences ul li .exempleText a:hover {
+    color: #4a5c9d;
 }
 
 main #mesExperiences ul li img {
     height: 4em;
-    margin-top: 2em;
+    margin-top: 1em;
 }
 
 main #mesExperiences #engrenage {
