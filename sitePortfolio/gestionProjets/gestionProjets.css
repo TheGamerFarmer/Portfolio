@@ -179,7 +179,8 @@ main #modificationProjets h2 {
 main #modificationProjets #projets {
     display: flex;
     justify-content: space-between;
-    gap: 5vh 10vw;
+    flex-wrap: wrap;
+    gap: 5vh 3vw;
     width: 90vw;
 }
 
