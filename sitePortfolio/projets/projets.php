@@ -12,7 +12,7 @@
 
 <body>
 <?php
-    require_once "../../BDD.php";
+    require_once "../../BDD/BDD.php";
     $bdd = connectDatabase();
     include("../header/header.php");
 ?>

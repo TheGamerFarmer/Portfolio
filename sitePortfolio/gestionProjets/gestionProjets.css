@@ -76,7 +76,8 @@ main #formulaire input[type="file"] {
 }
 
 main #formulaire #fileInputButton,
-main #formulaire input[type="submit"] {
+main #formulaire #buttons input[type="submit"],
+main #formulaire #buttons #cancelButton {
     align-self: flex-start;
     background-color: #6F84D1;
     color: white;
@@ -93,8 +94,21 @@ main #formulaire input[type="submit"] {
 }
 
 main #formulaire #fileInputButton:hover,
-main #formulaire input[type="submit"]:hover {
+main #formulaire #buttons input[type="submit"]:hover {
     background-color: #4a5c9d;
+}
+
+main #formulaire #buttons {
+    display: flex;
+    gap: 2vw;
+}
+
+main #formulaire #buttons #cancelButton {
+    background-color: red;
+}
+
+main #formulaire #buttons #cancelButton:hover {
+    background-color: darkred;
 }
 
 main #formulaire #preview {
@@ -161,52 +175,34 @@ main #modificationProjets {
 main #modificationProjets #projets {
     display: flex;
     flex-direction: column;
-    gap: 2em;
+    gap: 5vh;
+    width: 40vw;
 }
 
 main #modificationProjets #projets .projet {
     background-color: #EAE9C5;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 2em 5em;
+    justify-content: center;
+    padding: 1em 2em;
 }
 
-main #modificationProjets #projets .projet div.projetDescription {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: calc(100vw - 31em);
-    align-self: stretch;
-    font-size: 1.5em;
+main #modificationProjets #projets .projet button {
+    margin: 0 1.5vw;
+    height: 4vh;
+    width: 2.5vw;
+    background-color: #6F84D1;
+    border-color: #6F84D1;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
-main #modificationProjets #projets .projet div.projetDescription .title {
+main #modificationProjets #projets .projet .title {
     margin: 0 1em;
     text-decoration: underline;
-}
-
-main #modificationProjets #projets .projet div.projetDescription .title a {
+    text-align: center;
     color: #040333;
     font-family: Impact, serif;
     font-size: 2em;
-}
-
-main #modificationProjets #projets .projet div.projetDescription p.description {
     flex-grow: 1;
-    color: #040333;
-}
-
-main #modificationProjets #projets .projet .projetImagesEtVideos {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    width: 30em;
-    height: 15em;
-}
-
-main #modificationProjets #projets .projet .projetImagesEtVideos video, main #modificationProjets #projets .projet .projetImagesEtVideos img {
-    max-width: 100%;
-    max-height: 100%;
 }

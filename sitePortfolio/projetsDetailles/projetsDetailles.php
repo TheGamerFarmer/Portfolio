@@ -13,7 +13,7 @@
 
 <body>
 <?php
-require_once "../../BDD.php";
+require_once "../../BDD/BDD.php";
 $bdd = connectDatabase();
 
 $queryAwser = $bdd -> query("SELECT * FROM projets WHERE projetID = '{$_GET["projetID"]}'") -> getIterator();

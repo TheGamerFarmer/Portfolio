@@ -1,15 +1,19 @@
-import {getCookie, cookieName, loggedCode} from "../header/header.js";
+import {cookieName, getCookie, loggedCode} from "../header/header.js";
 
 if (getCookie(cookieName) !== loggedCode) {
     window.location.href = "/";
 }
 
+let selectedFiles;
+let preview;
+
 window.addEventListener("load", () => {
     const fileInput = document.getElementById('fileInput');
     const buttonFileInput = document.getElementById("fileInputButton");
-    const preview = document.getElementById('preview');
+    preview = document.getElementById('preview');
     const formulaire = document.getElementById('formulaire');
-    const selectedFiles = [];
+    const projetsModifButtons = document.querySelectorAll("main #modificationProjets #projets .projet button");
+    selectedFiles = [];
 
     buttonFileInput.addEventListener("click", () => {
         fileInput.click()
@@ -25,23 +29,6 @@ window.addEventListener("load", () => {
             const reader = new FileReader();
 
             reader.onload = function (event) {
-                const containerContainer = document.createElement('div');
-                containerContainer.classList.add("mediaContainerContainer");
-                const container = document.createElement('div');
-                container.classList.add("mediaContainer");
-
-                const btn = document.createElement('button');
-                btn.textContent = '❌';
-                btn.classList.add("suppMedia");
-                btn.onclick = () => {
-                    const index = selectedFiles.indexOf(file);
-                    if (index > -1) {
-                        selectedFiles.splice(index, 1);
-                        preview.removeChild(containerContainer);
-                        console.log('Fichier supprimé:', file.name, ', selectedFiles:', selectedFiles);
-                    }
-                };
-
                 let media;
                 if (file.type.startsWith('image/')) {
                     media = document.createElement('img');
@@ -52,10 +39,7 @@ window.addEventListener("load", () => {
                     media.controls = true;
                 }
 
-                container.appendChild(media);
-                container.appendChild(btn);
-                containerContainer.appendChild(container)
-                preview.appendChild(containerContainer);
+                addElementInPreview(media, file);
             };
 
             reader.readAsDataURL(file);
@@ -87,4 +71,105 @@ window.addEventListener("load", () => {
                 console.error('Erreur fetch:', err);
             });
     });
+
+    projetsModifButtons.forEach(button => {
+        let id = button.id;
+        let projetID = id.split(":").reverse().at(0);
+        if (id.startsWith("modifyProjet")) {
+            button.addEventListener("click", () => {
+                fetch("/BDD/getProjet.php?id=" + projetID)
+                    .then(res => res.json())
+                    .then(json => {
+                        document.body.scrollTop = 0;
+                        document.documentElement.scrollTop = 0;
+
+                        const children = formulaire.children;
+
+                        children.namedItem("titre").value = json["projet"][0]["title"];
+                        children.namedItem("description").value = json["projet"][0]["description"];
+                        children.namedItem("competences").value = json["projet"][0]["competences"];
+                        children.namedItem("objectifs").value = json["projet"][0]["objectifs"];
+                        children.namedItem("travailDeGroupe").value = json["projet"][0]["travail_En_Groupe"];
+                        children.namedItem("travailIndividuel").value = json["projet"][0]["travail_individuel"];
+                        children.namedItem("aquis").value = json["projet"][0]["savoir_Faire_Aquis"];
+
+                        const videos = json["videos"];
+                        for (const video in videos) {
+                            const videoElement = document.createElement('video');
+                            videoElement.src = "/sitePortfolio/projets/videos/" + videos[video]["lienVideo"];
+                            videoElement.controls = true;
+
+                            addElementInPreview(videoElement);
+                        }
+
+                        const images = json["images"];
+                        for (const image in images) {
+                            const imageElement = document.createElement('img');
+                            imageElement.src = "/sitePortfolio/projets/images/" + images[image]["lienImage"];
+
+                            addElementInPreview(imageElement);
+                        }
+
+                        const cancelButton = document.createElement('button');
+                        cancelButton.id = "cancelButton";
+                        cancelButton.textContent = "Annuler"
+
+                        cancelButton.addEventListener("click", (e) => {
+                            e.preventDefault()
+                            document.body.scrollTop = 0;
+                            document.documentElement.scrollTop = 0;
+
+                            formulaire.reset()
+                            selectedFiles.length = 0;
+                            preview.innerHTML = '';
+                            cancelButton.remove()
+                        })
+
+                        children.namedItem("buttons").appendChild(cancelButton)
+                    })
+            });
+
+        } else if (id.startsWith("suppProjet")) {
+            button.addEventListener("click", () => {
+                suppProject(projetID);
+                button.parentElement.remove();
+            });
+        }
+    })
 });
+
+function addElementInPreview(element, file = null) {
+    if (file != null)
+        selectedFiles.push(file);
+
+    const containerContainer = document.createElement('div');
+    containerContainer.classList.add("mediaContainerContainer");
+    const container = document.createElement('div');
+    container.classList.add("mediaContainer");
+
+    const btn = document.createElement('button');
+    btn.textContent = '❌';
+    btn.classList.add("suppMedia");
+    btn.onclick = () => {
+        if (file != null) {
+            const index = selectedFiles.indexOf(file);
+            if (index > -1) {
+                selectedFiles.splice(index, 1);
+            }
+        }
+
+        preview.removeChild(containerContainer);
+    };
+
+
+    container.appendChild(element);
+    container.appendChild(btn);
+    containerContainer.appendChild(container)
+    preview.appendChild(containerContainer);
+}
+
+function suppProject(projetID) {
+    void fetch("/BDD/suppProjet.php?id=" + projetID, {
+        method: "POST"
+    })
+}

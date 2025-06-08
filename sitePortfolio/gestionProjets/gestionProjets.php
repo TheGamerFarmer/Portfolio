@@ -16,7 +16,7 @@
 
 use Random\RandomException;
 
-require_once "../../BDD.php";
+require_once "../../BDD/BDD.php";
 $bdd = connectDatabase();
 include("../header/header.php");
 ?>
@@ -48,10 +48,11 @@ include("../header/header.php");
 
         <input id="fileInput" type="file" name="medias[]" accept="image/*,video/*" multiple>
         <button id="fileInputButton" type="button">Ajouter des images ou vidéos</button>
-
         <div id="preview"></div>
 
-        <input type="submit" value="Enregistrer">
+        <div id="buttons">
+            <input type="submit" value="Enregistrer">
+        </div>
     </form>
 
     <?php
@@ -119,6 +120,31 @@ include("../header/header.php");
         }
     }
     ?>
+
+    <div id="modificationProjets">
+        <h2 class="sousTitre">Modification des projets</h2>
+
+        <div id="projets">
+            <?php
+            $imagesDir = '/sitePortfolio/projets/images/';
+            $videosDir = '/sitePortfolio/projets/videos/';
+
+            $projets = $bdd -> query("SELECT * FROM projets") -> getIterator();
+
+            while ($projets -> valid()) {
+                $projet = $projets -> current();
+                ?>
+                <div class='projet'>
+                    <button id="modifyProjet:<?= $projet["projetID"] ?>">✏️</button>
+                    <button id="suppProjet:<?= $projet["projetID"] ?>">🗑️</button>
+                    <h2 class='title'><?= $projet["title"] ?></h2>
+                </div>
+
+                <?php
+                $projets -> next();
+            }
+            ?>
+    </div>
 </main>
 
 </body>
