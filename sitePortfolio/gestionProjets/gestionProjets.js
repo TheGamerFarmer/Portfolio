@@ -8,6 +8,7 @@ let preview;
 let formulaire;
 let selectedFiles = [];
 let selectedFilesNames = [];
+let projetID;
 
 
 window.addEventListener("load", () => {
@@ -49,11 +50,11 @@ window.addEventListener("load", () => {
         fileInput.value = '';
     });
 
-    formulaire.addEventListener('submit', submitListener);
+    formulaire.addEventListener('submit', submitAdd);
 
     projetsModifButtons.forEach(button => {
         let id = button.id;
-        let projetID = id.split(":").reverse().at(0);
+        projetID = id.split(":").reverse().at(0);
         if (id.startsWith("modifyProjet")) {
             button.addEventListener("click", () => {
                 fetch("/BDD/getProjet.php?id=" + projetID)
@@ -90,38 +91,8 @@ window.addEventListener("load", () => {
                             addElementInPreview(imageElement, nomImage);
                         }
 
-                        formulaire.removeEventListener("submit", submitListener);
-                        formulaire.addEventListener("submit", (e) => {
-                            e.preventDefault()
-
-                            const formData = new FormData(formulaire);
-
-                            formData.set("projectID", projetID);
-
-                            formData.delete('medias[]');
-                            selectedFiles.forEach((file) => {
-                                formData.append('medias[]', file);
-                            });
-
-                            selectedFilesNames.forEach((fileName) => {
-                                formData.append('oldmedias[]', fileName);
-                            });
-
-                            fetch("/BDD/modifyProject.php", {
-                                method: 'POST',
-                                body: formData
-                            })
-                                .then(() => {
-                                    formulaire.reset();
-                                    selectedFiles.length = 0;
-                                    preview.innerHTML = '';
-
-                                    window.location.reload()
-                                })
-                                .catch(err => {
-                                    console.error('Erreur fetch:', err);
-                                });
-                        })
+                        formulaire.removeEventListener("submit", submitAdd);
+                        formulaire.addEventListener("submit", submitModify);
 
                         const cancelButton = document.createElement('button');
                         cancelButton.id = "cancelButton";
@@ -132,6 +103,10 @@ window.addEventListener("load", () => {
                             document.body.scrollTop = 0;
                             document.documentElement.scrollTop = 0;
 
+
+
+                            formulaire.removeEventListener("submit", submitModify);
+                            formulaire.addEventListener("submit", submitAdd);
                             formulaire.reset()
                             selectedFiles.length = 0;
                             preview.innerHTML = '';
@@ -176,20 +151,20 @@ function addElementInPreview(element, file) {
 
         const index = list.indexOf(file);
         if (index > -1) {
-            list.splice(index, 1);
-        }
+            list.splice(index, 1);}
 
         preview.removeChild(containerContainer);
     };
 
 
     container.appendChild(element);
-    container.appendChild(btn);
+    container
+        .appendChild(btn);
     containerContainer.appendChild(container)
     preview.appendChild(containerContainer);
 }
 
-function submitListener (e) {
+function submitAdd (e) {
     e.preventDefault();
 
     const formData = new FormData(formulaire);
@@ -200,6 +175,38 @@ function submitListener (e) {
     });
 
     fetch(window.location.href, {
+        method: 'POST',
+        body: formData
+    })
+        .then(() => {
+            formulaire.reset();
+            selectedFiles.length = 0;
+            preview.innerHTML = '';
+
+            window.location.reload()
+        })
+        .catch(err => {
+            console.error('Erreur fetch:', err);
+        });
+}
+
+function submitModify (e) {
+    e.preventDefault()
+
+    const formData = new FormData(formulaire);
+
+    formData.set("projectID", projetID);
+
+    formData.delete('medias[]');
+    selectedFiles.forEach((file) => {
+        formData.append('medias[]', file);
+    });
+
+    selectedFilesNames.forEach((fileName) => {
+        formData.append('oldmedias[]', fileName);
+    });
+
+    fetch("/BDD/modifyProject.php", {
         method: 'POST',
         body: formData
     })
