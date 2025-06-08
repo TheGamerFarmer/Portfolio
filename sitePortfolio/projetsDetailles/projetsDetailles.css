@@ -101,7 +101,7 @@ main #medias #viewport #mediaWrapper {
 }
 
 main #medias #viewport #mediaWrapper .media {
-    width: 100%;
+    width: 34vw;
     height: calc(47.5vh - 2.5em);
     display: flex;
     justify-content: center;
@@ -110,6 +110,5 @@ main #medias #viewport #mediaWrapper .media {
 main #medias #viewport #mediaWrapper .media img, main #medias #viewport #mediaWrapper .media video {
     max-height: 100%;
     max-width: 100%;
-    object-fit: cover;
     border-radius: 20px;
 }
