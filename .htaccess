@@ -10,6 +10,7 @@ Options -Indexes
     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
     RewriteBase /
     RewriteRule ^$ accueil/accueil.html [L]
+    RewriteRule ^cv_Raphael_MATHERET$ accueil/CV_Raphael_MATHERET.pdf [L]
     RewriteRule ^portfolio$ sitePortfolio/aProposDeMoi/aProposDeMoi.php [L]
     RewriteRule ^portfolio/contact$ sitePortfolio/contact/contact.php [L]
     RewriteRule ^portfolio/projets$ sitePortfolio/projets/projets.php [L]
