@@ -96,6 +96,10 @@ main form {
     margin-top: 2%;
 }
 
+main form label {
+    display: none;
+}
+
 main form .textField {
     height: 2em;
     width: 100%;

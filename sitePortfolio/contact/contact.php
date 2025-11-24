@@ -34,15 +34,12 @@
     </div>
 
     <form method="POST">
-        <label>
-            <input class="textField" type="email" name="email" placeholder="Email" required>
-        </label>
-        <label>
-            <input class="textField" type="text" name="nom" placeholder="Nom" required>
-        </label>
-        <label>
-            <textarea name="message" placeholder="Message" required></textarea>
-        </label>
+        <input id="mail" class="textField" type="email" name="email" placeholder="Email" required>
+        <label for="mail"></label>
+        <input id="name" class="textField" type="text" name="nom" placeholder="Nom" required>
+        <label for="name"></label>
+        <textarea id="message" name="message" placeholder="Message" required></textarea>
+        <label for="message"></label>
         <input id="submit" type="submit" value="Envoyer">
     </form>
 
