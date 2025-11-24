@@ -10,7 +10,7 @@ body {
 }
 
 h1, p, a {
-    color: #EAE9C5;
+    color: #e8e8f3;
 }
 
 h1 {
@@ -23,7 +23,7 @@ h1 {
 
 #link {
     font-size: 2em;
-    border: 5px solid #6F84D1;
+    border: 5px solid #9290e7;
     border-radius: 1.5em;
     padding: 1em 2em;
 }

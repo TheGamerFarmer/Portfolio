@@ -5,7 +5,7 @@ main {
 }
 
 main h1 {
-    color: #EAE9C5;
+    color: #e8e8f3;
     font-family: Impact, serif;
     font-size: 7em;
     text-decoration: underline;
@@ -13,7 +13,7 @@ main h1 {
 }
 
 main .sousTitre {
-    color: #EAE9C5;
+    color: #e8e8f3;
     font-family: Impact, serif;
     font-size: 3em;
     text-decoration: underline;
@@ -26,7 +26,7 @@ main #formulaire {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    border: 5px solid #6F84D1;
+    border: 5px solid #9290e7;
     border-radius: 20px;
     padding: 1% 2%;
 }
@@ -79,7 +79,7 @@ main #formulaire #fileInputButton,
 main #formulaire #buttons input[type="submit"],
 main #formulaire #buttons #cancelButton {
     align-self: flex-start;
-    background-color: #6F84D1;
+    background-color: #9290e7;
     color: white;
     border: none;
     padding: 14px 28px;
@@ -185,7 +185,7 @@ main #modificationProjets #projets {
 }
 
 main #modificationProjets #projets .projet {
-    background-color: #EAE9C5;
+    background-color: #e8e8f3;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -198,8 +198,8 @@ main #modificationProjets #projets .projet button {
     margin: 0 1.5vw;
     height: 4vh;
     width: 2.5vw;
-    background-color: #6F84D1;
-    border-color: #6F84D1;
+    background-color: #9290e7;
+    border-color: #9290e7;
     border-radius: 10px;
     cursor: pointer;
 }

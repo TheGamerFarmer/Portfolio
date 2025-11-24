@@ -78,12 +78,12 @@
         <img id="engrenage" class="imageFond" src="/sitePortfolio/aProposDeMoi/engrenage.png" alt="engrenage">
     </div>
 
-    <div id="mesLangages" class="partie">
-        <img id="imageLocigielsTravail" class="imageFond translucide" src="/sitePortfolio/aProposDeMoi/imageMesLangages.png" alt="image logiciels travail">
+    <div id="mesOutils" class="partie">
+        <img id="imageLocigielsTravail" class="imageFond translucide" src="/sitePortfolio/aProposDeMoi/imageMesOutils.png" alt="image logiciels travail">
         <img id="flecheMesLangagges" class="imageFond translucide" src="/sitePortfolio/images/fleche.png" alt="fleche">
-        <img id="ordinateurLogicielTravail" class="imageFond" src="/sitePortfolio/aProposDeMoi/ordinateurMesLangages.png" alt="ordinateur logiciels travail">
+        <img id="ordinateurLogicielTravail" class="imageFond" src="/sitePortfolio/aProposDeMoi/ordinateurMesOutils.png" alt="ordinateur logiciels travail">
 
-        <h1 class="titre">Mes langages</h1>
+        <h1 class="titre">Mes outils</h1>
 
         <div class="langage">
             <img src="/sitePortfolio/aProposDeMoi/logoJava.png" alt="logo java">

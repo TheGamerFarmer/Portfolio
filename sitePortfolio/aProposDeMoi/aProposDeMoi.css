@@ -8,7 +8,7 @@ main .partie {
 }
 
 main .titre {
-    color: #EAE9C5;
+    color: #9290e7;
     text-decoration: underline;
     font-size: 7em;
     margin: 0 0 0 1.8em;
@@ -39,7 +39,7 @@ main #presentation #presentation-text h1 {
 }
 
 main #presentation #presentation-text p {
-    color: #6F84D1;
+    color: #e8e8f3;
     font-size: 2em;
     width: 70%;
     border: 20px solid #040333;
@@ -94,13 +94,14 @@ main #mesExperiences ul {
 main #mesExperiences ul li {
     display: flex;
     gap: 1em;
-    color: #EAE9C5;
+    color: #e8e8f3;
     width: 32vw;
 }
 
 main #mesExperiences ul li .exempleText h2 {
     font-size: 3em;
     margin: 0.5em 0 0 0;
+    color: #9290e7;
 }
 
 main #mesExperiences ul li .exempleText p {
@@ -109,12 +110,12 @@ main #mesExperiences ul li .exempleText p {
 }
 
 main #mesExperiences ul li .exempleText a {
-    color: #6F84D1;
+    color: #0f0bf8;
     transition: color ease-in-out 0.1s;
 }
 
 main #mesExperiences ul li .exempleText a:hover {
-    color: #4a5c9d;
+    color: #9290e7;
 }
 
 main #mesExperiences ul li img {
@@ -125,65 +126,67 @@ main #mesExperiences ul li img {
 main #mesExperiences #engrenage {
     left: 1%;
     bottom: 3%;
+    opacity: 70%;
 }
 
-main #mesLangages #imageLocigielsTravail {
+main #mesOutils #imageLocigielsTravail {
     top: 0;
     right: 0;
 }
 
 
-main #mesLangages #flecheMesLangagges {
+main #mesOutils #flecheMesLangagges {
     top: 30%;
     left: 4%;
     width: 8em;
 }
 
-main #mesLangages #ordinateurLogicielTravail {
+main #mesOutils #ordinateurLogicielTravail {
     bottom: 10%;
     left: 50%;
     transform: translateX(-50%);
+    opacity: 85%;
 }
 
-main #mesLangages .langage {
+main #mesOutils .langage {
     position: absolute;
     display: flex;
     align-items: center;
     height: 10em;
     padding: 1em 3em;
-    border: 10px double #6F84D1;
+    border: 10px double #9290e7;
     border-radius: 1000px;
     text-align: center;
     transform: translateX(-50%)
                 translateY(-50%);
 }
 
-main #mesLangages .titre + .langage {
+main #mesOutils .titre + .langage {
     bottom: -8%;
     left: 20%;
 }
 
-main #mesLangages .titre + .langage + .langage {
+main #mesOutils .titre + .langage + .langage {
     bottom: 22.406%;
     left: 28.787%;
 }
 
-main #mesLangages .titre + .langage + .langage + .langage {
+main #mesOutils .titre + .langage + .langage + .langage {
     bottom: 35%;
     left: 50%;;
 }
 
-main #mesLangages .titre + .langage + .langage + .langage + .langage {
+main #mesOutils .titre + .langage + .langage + .langage + .langage {
     bottom: 22.406%;
     left: 71.213%;
 }
 
-main #mesLangages .titre + .langage + .langage + .langage + .langage + .langage {
+main #mesOutils .titre + .langage + .langage + .langage + .langage + .langage {
     bottom: -8%;
     left: 80%;
 }
 
-main #mesLangages .langage img {
+main #mesOutils .langage img {
     max-width: 15em;
     max-height: 10em;
 }

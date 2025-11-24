@@ -19,26 +19,30 @@
     <h1>Contact</h1>
     <div id="contact">
         <ul>
-            <li><i>Email: </i>prenom.nom@etu.univ-grenoble-alpes.fr</li>
-            <li><i>Adresse: </i>7 impasse du geai, 38410 Saint Martin d'Uriage</li>
+            <li>Email: <i>prenom.nom@etu.univ-grenoble-alpes.fr</i></li>
         </ul>
-        <img src="/sitePortfolio/contact/contactImage.png" alt="Contact image">
+        <img id="contactImg" src="/sitePortfolio/contact/contactImage.png" alt="Contact image">
         <ul>
-            <li><i>Tel: </i>0786870606</li>
-            <li><i>GitHub: </i><a href="https://github.com/TheGamerFarmer">TheGamerFarmer</a></li>
-            <li><i>LinkedIn: </i><a href="https://www.linkedin.com/in/raphael-matheret">Raphaël M</a></li>
+            <li>GitHub: <i><a href="https://github.com/TheGamerFarmer">TheGamerFarmer</a></i></li>
+            <li>LinkedIn: <i><a href="https://www.linkedin.com/in/raphael-matheret">Raphaël M</a></i></li>
         </ul>
     </div>
     <div id="formMessage">
         <img src="/sitePortfolio/contact/form arrow.png" alt="first arrow">
-        <p>Écrivez directement votre message ici:</p>
+        <p>Écrivez votre message ici:</p>
         <img src="/sitePortfolio/contact/form arrow.png" alt="second arrow">
     </div>
 
     <form method="POST">
-        <input class="textField" type="email" name="email" placeholder="Email" required>
-        <input class="textField" type="text" name="nom" placeholder="Nom" required>
-        <textarea name="message" placeholder="Message" required></textarea>
+        <label>
+            <input class="textField" type="email" name="email" placeholder="Email" required>
+        </label>
+        <label>
+            <input class="textField" type="text" name="nom" placeholder="Nom" required>
+        </label>
+        <label>
+            <textarea name="message" placeholder="Message" required></textarea>
+        </label>
         <input id="submit" type="submit" value="Envoyer">
     </form>
 

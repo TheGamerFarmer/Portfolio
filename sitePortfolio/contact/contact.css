@@ -13,11 +13,11 @@ main #fleche {
 }
 
 main h1 {
-    color: #EAE9C5;
+    color: #9290e7;
     font-size: 5em;
     padding: 0.1em 1em;
     margin: 0;
-    border-bottom: 5px solid #EAE9C5;
+    border-bottom: 5px solid #9290e7;
     width: fit-content;
     font-family: Impact, serif;
 }
@@ -33,12 +33,13 @@ main #contact ul {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: #6F84D1;
+    background-color: #9290e7;
     padding: 1em 2em 1em 3em ;
     border-radius: 20px;
     margin: 0;
     width: 25%;
-    color: #040333;
+    font-weight: bold;
+    color: #15129d;
 }
 
 main #contact ul li {
@@ -46,18 +47,24 @@ main #contact ul li {
 }
 
 main #contact ul li i {
-    font-weight: bold;
+    font-weight: normal;
     font-style: normal;
+    color: #040333;
 }
 
 main #contact ul li a {
-    color: #040333;
+    color: #0f0bf8;
     font-style: italic;
     transition: color ease-in-out 0.1s;
 }
 
 main #contact ul li a:hover {
-    color: #EAE9C5;
+    color: #15129d;
+}
+
+main #contact #contactImg {
+    height: 7em;
+    opacity: 85%;
 }
 
 main #formMessage {
@@ -65,10 +72,14 @@ main #formMessage {
     align-items: center;
 }
 
+main #formMessage img {
+    height: 4em;
+}
+
 main #formMessage p {
-    color: #EAE9C5;
-    font-size: 3em;
-    margin: 0 1em;
+    color: #9290e7;
+    font-size: 2.5em;
+    margin: 0 0.8em;
 }
 
 main #formMessage p + img {
@@ -88,8 +99,12 @@ main form {
 main form .textField {
     height: 2em;
     width: 100%;
-    border-radius: 10px;
+    border-radius: 20px;
+    border-color: #15129d;
+    background-color: #040350;
+    color: #e8e8f3;
     padding: 0 1em;
+    font-size: large;
 }
 
 main form textarea {
@@ -97,15 +112,28 @@ main form textarea {
     min-height: 5em;
     max-height: 15em;
     width: 100%;
-    border-radius: 10px;
+    border-radius: 20px;
     padding: 0.25em 1em;
     flex-grow: 1;
+    border-color: #15129d;
+    background-color: #040350;
+    color: #e8e8f3;
+    font-size: large;
 }
 
 main form #submit {
     width: 15%;
-    height: 5em;
-    border-radius: 1000px;
+    height: 4em;
+    border-radius: 20px;
+    color: #cfcfff;
+    font-weight: bold;
+    font-size: large;
+    border-color: #15129d;
+    background-color: #15129d;
+}
+
+main form #submit:hover {
+    cursor: pointer;
 }
 
 main #imageBasGauche {

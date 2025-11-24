@@ -3,7 +3,7 @@ main {
 }
 
 main h1 {
-    color: #EAE9C5;
+    color: #e8e8f3;
     text-decoration: underline;
     font-size: 7em;
     margin: 0 0 0.5em 1.8em;
@@ -18,7 +18,7 @@ main #projets {
 }
 
 main #projets .projet {
-    background-color: #6F84D1;
+    background-color: #9290e7;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -46,12 +46,12 @@ main #projets .projet div.projetDescription .title {
 main #projets .projet div.projetDescription .title a {
     font-family: Impact, serif;
     font-size: 2em;
-    color: #EAE9C5;
+    color: #e8e8f3;
     transition: color ease-in-out 0.3s;
 }
 
 main #projets .projet div.projetDescription .title:hover {
-    background-color: #EAE9C5;
+    background-color: #e8e8f3;
 }
 
 main #projets .projet div.projetDescription .title:hover a {
