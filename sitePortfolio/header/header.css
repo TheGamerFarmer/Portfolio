@@ -65,7 +65,7 @@ header .modal {
     animation: fadeIn 0.3s ease-out;
 }
 
-header .modal h2 {
+header .modal   h2 {
     color: #040333;
 }
 
@@ -81,8 +81,9 @@ header .modal input {
     box-sizing: border-box;
 }
 
-header .modal button {
+header .modal input[type="submit"] {
     margin-top: 1rem;
+    width: fit-content;
     padding: 0.5rem 1rem;
     border: none;
     background-color: #040333;
@@ -91,7 +92,7 @@ header .modal button {
     border-radius: 5px;
 }
 
-header .modal button:hover {
+header .modal input[type="submit"]:hover {
     background: #0056b3;
 }
 

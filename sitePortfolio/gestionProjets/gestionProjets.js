@@ -1,7 +1,12 @@
-import {cookieName, getCookie, loggedCode} from "../header/header.js";
+const isLogResponse = await fetch(`/portfolio/api/isLog`, {
+    method: "GET",
+    credentials: "include",
+});
 
-if (getCookie(cookieName) !== loggedCode) {
-    window.location.href = "/";
+let isLog = isLogResponse.ok && (await isLogResponse.json()).value;
+
+if (!isLog) {
+    window.location.href = "/portfolio";
 }
 
 let preview;
@@ -9,7 +14,6 @@ let formulaire;
 let selectedFiles = [];
 let selectedFilesNames = [];
 let projetID;
-
 
 window.addEventListener("load", () => {
     const fileInput = document.getElementById('fileInput');
@@ -119,7 +123,8 @@ window.addEventListener("load", () => {
             button.addEventListener("click", () => {
                 projetID = id.split(":").reverse().at(0);
                 void fetch("/BDD/suppProjet.php?id=" + projetID, {
-                    method: "POST"
+                    method: "POST",
+                    credentials: 'include'
                 })
                 button.parentElement.remove();
             });
@@ -207,6 +212,7 @@ function submitModify (e) {
 
     fetch("/BDD/modifyProject.php", {
         method: 'POST',
+        credentials: 'include',
         body: formData
     })
         .then(() => {

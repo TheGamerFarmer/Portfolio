@@ -4,6 +4,13 @@ $bdd = connectDatabase();
 
 header('Content-Type: text/html; charset=UTF-8');
 
+$token = $_COOKIE['token'] ?? null;
+
+require_once "./isUserLoggedFunc.php";
+
+if (!isUserLogged($token) || !isset($_GET['id']))
+    exit;
+
 $bdd -> query("DELETE FROM projets WHERE projetID = " . $_GET['id']);
 
 $imagesDir = '/sitePortfolio/projets/images/';

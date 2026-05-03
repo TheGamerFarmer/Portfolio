@@ -5,16 +5,14 @@
     <title>Gestion projets</title>
     <link rel="icon" type="image/x-icon" href="/icon.jpeg">
     <link rel="stylesheet" href="/sitePortfolio/gestionProjets/gestionProjets.css">
-    <link rel="stylesheet" href="/sitePortfolio/header/header.css">
-    <link rel="stylesheet" href="/sitePortfolio/images/images.css">
-    <script type="module" src="/sitePortfolio/header/header.js"></script>
+    <?php include("../header/headerHead.html") ?>
     <script type="module" src="/sitePortfolio/gestionProjets/gestionProjets.js"></script>
 </head>
 
 <body>
 <?php
-require "../../BDD/librairie.php";
-require "../../BDD/BDD.php";
+require_once "../../BDD/librairie.php";
+require_once "../../BDD/BDD.php";
 $bdd = connectDatabase();
 include("../header/header.php");
 ?>

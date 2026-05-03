@@ -8,11 +8,13 @@
     </div>
 
     <div class="modal-overlay" id="modalOverlay">
-        <div class="modal">
+
+        <form id="passwordForm" method="POST" class="modal">
             <h2>Entrez le mot de passe</h2>
             <input type="password" id="passwordInput" placeholder="Mot de passe">
-            <button id="submitPassword">Valider</button>
-            <div class="error" id="errorMsg"></div>
-        </div>
+            <label for="passwordInput"></label>
+            <input id="submitPassword" type="submit" value="Valider">
+            <p class="error" id="errorMsg"></p>
+        </form>
     </div>
 </header>

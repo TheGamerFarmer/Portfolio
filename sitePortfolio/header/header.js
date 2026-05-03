@@ -1,26 +1,32 @@
-const correctPassword = "1234";
-export const loggedCode = "C'est bon on est connecté"
-export const cookieName = "authPassword";
 let link;
 let modal;
 let input;
-let button;
+let submit;
+let passwordForm;
 let errorMsg;
 
-window.addEventListener("load", () => {
+window.addEventListener("load", async () => {
     link = document.getElementById("protectedLink");
     modal = document.getElementById("modalOverlay");
     input = document.getElementById("passwordInput");
-    button = document.getElementById("submitPassword");
+    submit = document.getElementById("submitPassword");
+    passwordForm = document.getElementById("passwordForm");
     errorMsg = document.getElementById("errorMsg");
 
-    if (getCookie(cookieName) === loggedCode) {
+    const isLogResponse = await fetch(`/portfolio/api/isLog`, {
+        method: "GET",
+        credentials: "include",
+    });
+
+    let isLog = isLogResponse.ok && (await isLogResponse.json()).value;
+
+    if (isLog) {
         link.textContent = "Gestion Projets"
         link.href = "/portfolio/gestionProjets"
     }
 
     link.addEventListener("click", (e) => {
-        if (getCookie(cookieName) !== loggedCode) {
+        if (!isLog) {
             e.preventDefault();
             modal.style.display = "flex";
             input.value = "";
@@ -29,35 +35,35 @@ window.addEventListener("load", () => {
         }
     });
 
-    button.addEventListener("click", () => {
-        if (input.value === correctPassword) {
-            setCookie(cookieName, loggedCode, 7);
-            modal.style.display = "none";
-            window.location.href = "/portfolio/gestionProjets";
-        } else {
-            errorMsg.textContent = "Mot de passe incorrect.";
+    passwordForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        submit.disabled = true;
+        try {
+            const passwordHashed = CryptoJS.SHA256("salut je met du sel sur mon hash zftgvbh" + input.value + "Bonjour, Ceci est du poivre pour un hash pour du sha256 aueaie").toString();
+
+            const response = await fetch(`/portfolio/api/login`, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    password: passwordHashed,
+                }),
+            });
+
+            if (response.ok) {
+                modal.style.display = "none";
+                window.location.href = "/portfolio/gestionProjets";
+            } else
+                errorMsg.textContent = await response.text();
+
+            submit.disabled = false;
+        } catch (err) {
+            console.log(err);
+            errorMsg.textContent = "Erreur de connexion au serveur";
         }
     });
 
     modal.addEventListener("click", (e) => {
-        if (e.target === modal) modal.style.display = "none";
+        if (e.target === modal)
+            modal.style.display = "none";
     });
 });
-
-function setCookie(name, value, days) {
-    const d = new Date();
-    d.setTime(d.getTime() + (days*24*60*60*1000));
-    const expires = "expires=" + d.toUTCString();
-    document.cookie = name + "=" + value + ";" + expires + ";path=/";
-}
-
-export function getCookie(name) {
-    const cname = name + "=";
-    const decodedCookie = decodeURIComponent(document.cookie);
-    const ca = decodedCookie.split(';');
-    for(let c of ca) {
-        while (c.charAt(0) === ' ') c = c.substring(1);
-        if (c.indexOf(cname) === 0) return c.substring(cname.length, c.length);
-    }
-    return "";
-}

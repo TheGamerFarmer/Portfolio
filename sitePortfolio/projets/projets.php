@@ -5,9 +5,7 @@
     <title>Portfolio</title>
     <link rel="icon" type="image/x-icon" href="/icon.jpeg">
     <link rel="stylesheet" href="/sitePortfolio/projets/projets.css">
-    <link rel="stylesheet" href="/sitePortfolio/header/header.css">
-    <link rel="stylesheet" href="/sitePortfolio/images/images.css">
-    <script type="module" src="/sitePortfolio/header/header.js"></script>
+    <?php include("../header/headerHead.html") ?>
 </head>
 
 <body>
@@ -32,7 +30,7 @@
             ?>
         <div class='projet'>
             <div class='projetDescription'>
-                <h2 class='title'><a href='/portfolio/projets/<?= $projet["title"] ?>?projetID=<?= $projet["projetID"] ?>'><?= $projet["title"] ?></a></h2>
+                <h2 class='title'><a href='/portfolio/projets/<?= $projet["projetID"] ?>'><?= $projet["title"] ?></a></h2>
                 <p class='description'><?= $projet["description"] ?></p>
             </div>
 

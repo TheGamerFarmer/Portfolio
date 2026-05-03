@@ -5,9 +5,7 @@
     <title>Portfolio</title>
     <link rel="icon" type="image/x-icon" href="/icon.jpeg">
     <link rel="stylesheet" href="/sitePortfolio/contact/contact.css">
-    <link rel="stylesheet" href="/sitePortfolio/header/header.css">
-    <link rel="stylesheet" href="/sitePortfolio/images/images.css">
-    <script type="module" src="/sitePortfolio/header/header.js"></script>
+    <?php include("../header/headerHead.html") ?>
 </head>
 
 <body>

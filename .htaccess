@@ -14,6 +14,8 @@ Options -Indexes
     RewriteRule ^portfolio$ sitePortfolio/aProposDeMoi/aProposDeMoi.php [L]
     RewriteRule ^portfolio/contact$ sitePortfolio/contact/contact.php [L]
     RewriteRule ^portfolio/projets$ sitePortfolio/projets/projets.php [L]
-    RewriteRule ^portfolio/projets/.*$ sitePortfolio/projetsDetailles/projetsDetailles.php [L]
+    RewriteRule ^portfolio/projets/(\d+)$ sitePortfolio/projetsDetailles/projetsDetailles.php?projetID=$1 [L]
     RewriteRule ^portfolio/gestionProjets$ sitePortfolio/gestionProjets/gestionProjets.php [L]
+    RewriteRule ^portfolio/api/login$ sitePortfolio/API/logUser.php [L]
+    RewriteRule ^portfolio/api/isLog$ sitePortfolio/API/isUserLogged.php [L]
 </IfModule>
