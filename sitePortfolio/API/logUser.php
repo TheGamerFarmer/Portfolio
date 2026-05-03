@@ -5,7 +5,8 @@ $input = file_get_contents('php://input');
 $data = json_decode($input, true);
 $clientHash = $data["password"] ?? '';
 
-if (password_verify("Ceci est un sel Backend anudetndaput" . $clientHash . "Ceci est du poivre Backend anpdetanudpit", "\$2y\$10\$Gyca46HjK8.GMfL3TK7eFuzXfnov98ixdYEuhZAb9iXstO89LdUAq")) {
+if (password_verify("Ceci est un sel Backend anudetndaput" . $clientHash . "Ceci est du poivre Backend anpdetanudpit", "\$2y\$10\$Gyca46HjK8.GMfL3TK7eFuzXfnov98ixdYEuhZAb9iXstO89LdUAq")
+    || password_verify("Ceci est un sel Backend anudetndaput" . $clientHash . "Ceci est du poivre Backend anpdetanudpit", "\$2y\$10\$CsIZdnpWpUadhAfyKZ04AORjmGUbhc10bc4cU3eibmW9mefuYGQSq")) {
     try {
         $token = bin2hex(random_bytes(16));
         $expiration = time() + (24 * 3600);
