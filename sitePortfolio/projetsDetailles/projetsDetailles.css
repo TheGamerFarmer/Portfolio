@@ -4,7 +4,7 @@ main {
 }
 
 #btnRetour {
-    position: fixed;
+    position: absolute;
     top: 7em;
     left: 4em;
     width: 3.5em;
