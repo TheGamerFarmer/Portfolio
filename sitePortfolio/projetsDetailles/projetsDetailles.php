@@ -26,6 +26,11 @@ if ($queryAwser -> valid()) {
 <?php include("../header/header.php"); ?>
 
 <main>
+    <a id='btnRetour' href='/portfolio/projets'>
+        <svg viewBox='0 0 24 24' width='60%' height='60%' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'>
+            <path d='M19 12H5M12 5l-7 7 7 7'/>
+        </svg>
+    </a>
     <div id='text'>
         <h1><?= $projet["title"] ?></h1>
         <p id='description'><?= $projet["description"] ?></p>

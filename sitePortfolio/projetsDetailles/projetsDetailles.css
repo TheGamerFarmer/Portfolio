@@ -3,6 +3,28 @@ main {
     margin: 3vh 3vw;
 }
 
+#btnRetour {
+    position: fixed;
+    top: 7em;
+    left: 4em;
+    width: 3.5em;
+    height: 3.5em;
+    border-radius: 50%;
+    background-color: #9290e7;
+    color: #040333;
+    font-size: 1em;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    transition: background-color 0.2s ease;
+}
+
+#btnRetour:hover {
+    background-color: #e8e8f3;
+}
+
 main #text {
     display: flex;
     flex-direction: column;
