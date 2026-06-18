@@ -1,21 +1,21 @@
-const isLogResponse = await fetch(`/portfolio/api/isLog`, {
-    method: "GET",
-    credentials: "include",
-});
-
-let isLog = isLogResponse.ok && (await isLogResponse.json()).value;
-
-if (!isLog) {
-    window.location.href = "/portfolio";
-}
-
 let preview;
 let formulaire;
 let selectedFiles = [];
 let selectedFilesNames = [];
 let projetID;
 
-window.addEventListener("load", () => {
+window.addEventListener("load", async () => {
+    const isLogResponse = await fetch(`/portfolio/api/isLog`, {
+        method: "GET",
+        credentials: "include",
+    });
+
+    let isLog = isLogResponse.ok && (await isLogResponse.json()).value;
+
+    if (!isLog) {
+        window.location.href = "/portfolio";
+    }
+
     const fileInput = document.getElementById('fileInput');
     const buttonFileInput = document.getElementById("fileInputButton");
     preview = document.getElementById('preview');
