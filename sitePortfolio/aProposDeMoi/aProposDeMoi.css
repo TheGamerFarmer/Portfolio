@@ -87,7 +87,7 @@ main #mesExperiences ul {
     flex-wrap: wrap;
     width: 70vw;
     justify-content: space-between;
-    gap: 3vh 3vw;
+    gap: 1vh 3vw;
     padding: 0 7%;
 }
 

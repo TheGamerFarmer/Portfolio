@@ -1,3 +1,12 @@
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(25px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+#titre { animation: fadeUp 0.6s ease both; }
+#link  { animation: fadeUp 0.6s ease 0.2s both; }
+#links { animation: fadeUp 0.6s ease 0.4s both; }
+
 body {
     width: 100vw;
     min-height: 100vh;
@@ -13,12 +22,22 @@ h1, p, a {
     color: #e8e8f3;
 }
 
+#titre {
+    align-self: start;
+    margin: 1em 0 0.8em 1.5em;
+}
+
 h1 {
     text-decoration: underline;
     font-size: 5em;
-    margin: 1em 1.5em;
+    margin: 0;
     width: fit-content;
-    align-self: start;
+}
+
+#accroche {
+    font-size: 2em;
+    color: #9290e7;
+    margin: 0.2em 0 0 0.1em;
 }
 
 #link {
@@ -62,4 +81,16 @@ a:first-child {
     position: absolute;
     top: 20%;
     right: 1.5%;
+}
+
+#photo {
+    position: absolute;
+    top: 2%;
+    right: 13%;
+    height: 40vh;
+    width: 20vw;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 50px;
+    animation: fadeUp 0.6s ease 0.2s both;
 }

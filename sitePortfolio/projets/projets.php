@@ -2,7 +2,13 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>Portfolio</title>
+    <title>Projets — Raphaël MATHERET</title>
+    <meta name="description" content="Découvrez les projets réalisés par Raphaël MATHERET : développement logiciel, web, Minecraft et plus.">
+    <meta property="og:title" content="Projets — Raphaël MATHERET">
+    <meta property="og:description" content="Découvrez les projets réalisés par Raphaël MATHERET : développement logiciel, web, Minecraft et plus.">
+    <meta property="og:image" content="https://raphael.zron.fr/sitePortfolio/aProposDeMoi/photo.jpeg">
+    <meta property="og:url" content="https://raphael.zron.fr/portfolio/projets">
+    <meta property="og:type" content="website">
     <link rel="icon" type="image/x-icon" href="/icon.jpeg">
     <link rel="stylesheet" href="/sitePortfolio/projets/projets.css">
     <?php include("../header/headerHead.html") ?>
@@ -28,7 +34,7 @@
         while ($projets -> valid()) {
             $projet = $projets -> current();
             ?>
-        <div class='projet'>
+        <div class='projet reveal'>
             <div class='projetDescription'>
                 <h2 class='title'><a href='/portfolio/projets/<?= $projet["projetID"] ?>'><?= $projet["title"] ?></a></h2>
                 <p class='description'><?= $projet["description"] ?></p>
