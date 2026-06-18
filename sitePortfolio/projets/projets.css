@@ -23,6 +23,12 @@ main #projets .projet {
     align-items: center;
     justify-content: space-between;
     padding: 2em 5em;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+main #projets .projet:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
 }
 
 main #projets .projet div.projetDescription {

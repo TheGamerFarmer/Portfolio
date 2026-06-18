@@ -10,7 +10,7 @@
 .reveal        { transform: translateY(30px); }
 .reveal-left   { transform: translateX(-50px); }
 .reveal-right  { transform: translateX(50px); }
-.reveal-scale  { transform: scale(0.75); }
+.reveal-scale  { transform: scale(0.93); }
 
 /* État visible déclenché par JS */
 .reveal.visible,

@@ -34,7 +34,7 @@
         while ($projets -> valid()) {
             $projet = $projets -> current();
             ?>
-        <div class='projet reveal'>
+        <div class='projet reveal-scale'>
             <div class='projetDescription'>
                 <h2 class='title'><a href='/portfolio/projets/<?= $projet["projetID"] ?>'><?= $projet["title"] ?></a></h2>
                 <p class='description'><?= $projet["description"] ?></p>
@@ -43,7 +43,9 @@
             <div class='projetImagesEtVideos'>
 
                 <?php
-            $videos = $bdd -> query("SELECT * FROM projetsVideos WHERE projetID = '{$projet["projetID"]}'");
+            $stmtVideos = $bdd->prepare("SELECT * FROM projetsVideos WHERE projetID = ?");
+            $stmtVideos->execute([$projet["projetID"]]);
+            $videos = $stmtVideos;
             $isVideos = $videos -> rowCount() > 0;
 
             if ($isVideos) {
@@ -58,7 +60,9 @@
 
                 <?php
             } else {
-                $images = $bdd -> query("SELECT * FROM projetsImages WHERE projetID = '{$projet["projetID"]}'");
+                $stmtImages = $bdd->prepare("SELECT * FROM projetsImages WHERE projetID = ?");
+                $stmtImages->execute([$projet["projetID"]]);
+                $images = $stmtImages;
 
                 if ($images -> rowCount() > 0) {
                     $image = $imagesDir . ($images -> fetchColumn(2));
@@ -81,7 +85,5 @@
     </div>
 </main>
 
-<main>
-</main>
 </body>
 </html>

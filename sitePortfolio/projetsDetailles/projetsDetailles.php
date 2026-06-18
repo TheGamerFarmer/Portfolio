@@ -1,8 +1,21 @@
 <!DOCTYPE html>
 <html lang="fr">
+
+<?php
+require_once "../../BDD/BDD.php";
+$bdd = connectDatabase();
+
+$stmt = $bdd->prepare("SELECT * FROM projets WHERE projetID = ?");
+$stmt->execute([$_GET["projetID"]]);
+$queryAwser = $stmt->getIterator();
+
+if ($queryAwser -> valid()) {
+    $projet = $queryAwser -> current();
+?>
+
 <head>
     <meta charset="utf-8">
-    <title>Portfolio</title>
+    <title><?= htmlspecialchars($projet["title"]) . " — Raphaël MATHERET" ?></title>
     <link rel="icon" type="image/x-icon" href="/icon.jpeg">
     <link rel="stylesheet" href="/sitePortfolio/projetsDetailles/projetsDetailles.css">
     <?php include("../header/headerHead.html") ?>
@@ -10,17 +23,7 @@
 </head>
 
 <body>
-<?php
-require_once "../../BDD/BDD.php";
-$bdd = connectDatabase();
-
-$queryAwser = $bdd -> query("SELECT * FROM projets WHERE projetID = '{$_GET["projetID"]}'") -> getIterator();
-
-if ($queryAwser -> valid()) {
-    $projet = $queryAwser -> current();
-
-    include("../header/header.php");
-?>
+<?php include("../header/header.php"); ?>
 
 <main>
     <div id='text'>
@@ -49,7 +52,9 @@ if ($queryAwser -> valid()) {
         $imagesDir = '/sitePortfolio/projets/images/';
         $videosDir = '/sitePortfolio/projets/videos/';
 
-        $videos = $bdd -> query("SELECT * FROM projetsVideos WHERE projetID = '{$projet["projetID"]}'") -> getIterator();
+        $stmtVideos = $bdd->prepare("SELECT * FROM projetsVideos WHERE projetID = ?");
+        $stmtVideos->execute([$projet["projetID"]]);
+        $videos = $stmtVideos->getIterator();
 
         while ($videos -> valid()) {
             $video = $videos -> current();
@@ -71,7 +76,9 @@ if ($queryAwser -> valid()) {
             $videos -> next();
         }
 
-        $images = $bdd -> query("SELECT * FROM projetsImages WHERE projetID = '{$projet["projetID"]}'") -> getIterator();
+        $stmtImages = $bdd->prepare("SELECT * FROM projetsImages WHERE projetID = ?");
+        $stmtImages->execute([$projet["projetID"]]);
+        $images = $stmtImages->getIterator();
 
         while ($images -> valid()) {
             $image = $images -> current();
