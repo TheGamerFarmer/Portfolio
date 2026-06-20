@@ -14,7 +14,7 @@ main h1 {
 main #projets {
     display: flex;
     flex-direction: column;
-    gap: 2em;
+    gap: 5em;
 }
 
 main #projets .projet {
@@ -24,6 +24,8 @@ main #projets .projet {
     justify-content: space-between;
     padding: 2em 5em;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin: 0 4em;
+    border-radius: 1000px;
 }
 
 main #projets .projet:hover {
@@ -40,28 +42,42 @@ main #projets .projet div.projetDescription {
     font-size: 1.5em;
 }
 
+main #projets a.projet {
+    text-decoration: none;
+}
+
 main #projets .projet div.projetDescription .title {
     margin: 0 1em;
     background-color: #040333;
     border-radius: 20px;
     padding: 0.25em 0.5em;
     box-shadow: #040333 2px 2px 3px;
-    transition: background-color ease-in-out 0.3s;
-}
-
-main #projets .projet div.projetDescription .title a {
     font-family: Impact, serif;
     font-size: 2em;
     color: #e8e8f3;
-    transition: color ease-in-out 0.3s;
 }
 
-main #projets .projet div.projetDescription .title:hover {
-    background-color: #e8e8f3;
-}
-
-main #projets .projet div.projetDescription .title:hover a {
+main #projets .projet div.projetDescription .enSavoirPlus {
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
     color: #040333;
+    font-weight: bold;
+    font-size: 0.8em;
+    margin-top: auto;
+    padding-top: 0.8em;
+    align-self: flex-end;
+    text-decoration: underline;
+}
+
+main #projets .projet div.projetDescription .enSavoirPlus svg {
+    width: 1.1em;
+    height: 1.1em;
+    transition: transform 0.2s ease;
+}
+
+main #projets .projet:hover .enSavoirPlus svg {
+    transform: translateX(5px);
 }
 
 main #projets .projet div.projetDescription p.description {

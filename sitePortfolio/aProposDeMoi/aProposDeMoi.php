@@ -26,7 +26,7 @@
             <p>Bonjour, je m'appelle Raphaël MATHERET, j'ai <?= (new DateTime('2006-09-21'))->diff(new DateTime())->y ?> ans.<br>
                 Je suis passionné d'informatique et de jeux vidéo depuis tout petit. Ce qui m'attire en informatique,
                 c'est le challenge intellectuel : trouver la bonne solution à un problème et pouvoir être fier du résultat.
-                Cette attrait pour l'optimisation dépasse largement le code, Satisfactory est un
+                Cet attrait pour l'optimisation dépasse largement le code : Satisfactory est un
                 de mes jeux vidéo préférés, et c'est uniquement centré sur ça. <br>
                 Côté technique, je me retrouve naturellement sur le backend et la logique métier plutôt que sur les interfaces.
             </p>

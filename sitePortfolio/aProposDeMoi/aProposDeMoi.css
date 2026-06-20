@@ -11,7 +11,7 @@ main .titre {
     color: #9290e7;
     text-decoration: underline;
     font-size: 7em;
-    margin: 0 0 0 1.8em;
+    margin: 0 0 0.2em 1.8em;
     width: fit-content;
     font-family: Impact, serif;
 }
@@ -44,6 +44,7 @@ main #presentation #presentation-text p {
     width: 70%;
     border: 20px solid #040333;
     border-image: url("/sitePortfolio/aProposDeMoi/borderPresentation.png") 50 / 1 / 0 round;
+    padding: 0.5em;
 }
 
 main #presentation #selfie {

@@ -34,10 +34,15 @@
         while ($projets -> valid()) {
             $projet = $projets -> current();
             ?>
-        <div class='projet reveal-scale'>
+        <a class='projet reveal-scale' href='/portfolio/projets/<?= $projet["projetID"] ?>'>
             <div class='projetDescription'>
-                <h2 class='title'><a href='/portfolio/projets/<?= $projet["projetID"] ?>'><?= $projet["title"] ?></a></h2>
+                <h2 class='title'><?= $projet["title"] ?></h2>
                 <p class='description'><?= $projet["description"] ?></p>
+                <span class='enSavoirPlus'>En savoir plus
+                    <svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'>
+                        <path d='M5 12h14M12 5l7 7-7 7'/>
+                    </svg>
+                </span>
             </div>
 
             <div class='projetImagesEtVideos'>
@@ -76,7 +81,7 @@
             ?>
 
             </div>
-        </div>
+        </a>
 
         <?php
             $projets -> next();
