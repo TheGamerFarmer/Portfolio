@@ -1,5 +1,6 @@
 main {
     display: flex;
+    align-items: flex-start;
     margin: 3vh 3vw;
 }
 
@@ -28,41 +29,62 @@ main {
 main #text {
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 59vw;
-    padding-right: 2vw;
+    padding-right: 4vw;
+    padding-top: 3em;
+    gap: 3em;
 }
 
 main #text h1 {
     color: #9290e7;
-    text-decoration: underline;
-    font-size: 7em;
+    font-size: 6em;
     font-family: Impact, serif;
-    margin: 0 0 0.25em 0;
+    text-decoration: underline;
+    margin: 0;
+    padding-left: 2em;
+}
+
+main #text #contexte {
+    color: #e8e8f3;
+    font-size: 1.5em;
+    font-family: Arial, serif;
+    font-style: italic;
+    margin: 0;
+    line-height: 1.3;
+    border-left: 4px solid #9290e7;
+    padding-left: 1em;
+}
+
+main #text section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8em;
+    border-top: 1px solid #9290e740;
+    padding-top: 2em;
 }
 
 main #text h2 {
-    color: #e8e8f3;
-    text-decoration: underline;
-    font-size: 2em;
+    color: #9290e7;
+    font-size: 2.5em;
     font-family: Impact, serif;
-    align-self: start;
-    margin: 0.5em 0 0 0;
+    margin: 0;
 }
 
 main #text p {
-    color: #9290e7;
+    color: #e8e8f3;
     font-size: 1.5em;
+    font-family: Arial, serif;
     margin: 0;
-    align-self: start;
+    line-height: 1.3;
 }
 
 main #medias {
-    margin-top: 1em;
-    width: 35vw;
-    height: calc(97vh - 5em);
-    position: relative;
-    border: 2px solid #ccc;
+    position: fixed;
+    top: 5em;
+    left: 65vw;
+    width: 32vw;
+    height: calc(100vh - 6em);
+    border: 2px solid #9290e7;
     border-radius: 10px;
     overflow: hidden;
     background-color: gray;
@@ -76,29 +98,30 @@ main #medias .control-btn {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(0, 0, 0, 0.35);
     border: none;
     padding: 6px;
     border-radius: 50%;
     cursor: pointer;
     z-index: 10;
-    transition: background 0.3s;
+    transition: background 0.3s, opacity 0.3s;
 }
 
 main #medias .control-btn:hover {
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(0, 0, 0, 0.6);
 }
 
 main #medias .control-btn svg {
     width: 28px;
     height: 28px;
-    fill: #007bff;
+    fill: #9290e7;
     pointer-events: none;
 }
 
 main #medias .control-btn:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
+    opacity: 0;
+    cursor: default;
+    pointer-events: none;
 }
 
 main #medias #btnUp {
@@ -107,6 +130,103 @@ main #medias #btnUp {
 
 main #medias #btnDown {
     bottom: 10px;
+}
+
+#mediaLoader {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: gray;
+    z-index: 5;
+    transition: opacity 0.3s;
+}
+
+#mediaLoader.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#mediaLoader::after {
+    content: '';
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(146, 144, 231, 0.3);
+    border-top-color: #9290e7;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+main #medias #counter {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-family: Arial, serif;
+    font-size: 0.9em;
+    background: #9290e7;
+    color: #040333;
+    padding: 2px 8px;
+    border-radius: 10px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+main #medias #viewport #mediaWrapper .media img {
+    cursor: zoom-in;
+}
+
+main #medias #viewport #mediaWrapper .media video {
+    cursor: default;
+}
+
+#lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.92);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+}
+
+#lightbox #closeBtn {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    background: #9290e7;
+    color: #040333;
+    border: none;
+    border-radius: 50%;
+    width: 2.5em;
+    height: 2.5em;
+    font-size: 1.2em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+#lightbox #closeBtn:hover {
+    background: #e8e8f3;
+}
+
+#lightbox.open {
+    display: flex;
+}
+
+#lightboxContent img,
+#lightboxContent video {
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 12px;
+    cursor: default;
 }
 
 main #medias #viewport {
@@ -123,13 +243,14 @@ main #medias #viewport #mediaWrapper {
 }
 
 main #medias #viewport #mediaWrapper .media {
-    width: 34vw;
+    width: 100%;
     height: calc(47.5vh - 2.5em);
     display: flex;
     justify-content: center;
 }
 
-main #medias #viewport #mediaWrapper .media img, main #medias #viewport #mediaWrapper .media video {
+main #medias #viewport #mediaWrapper .media img,
+main #medias #viewport #mediaWrapper .media video {
     max-height: 100%;
     max-width: 100%;
     border-radius: 20px;

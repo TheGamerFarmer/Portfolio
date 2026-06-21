@@ -4,8 +4,6 @@ function isUserLogged(string|null $token): bool {
         return false;
     }
 
-    require_once "../../BDD/BDD.php";
-
     $bdd = connectDatabase();
 
     $query = $bdd->prepare("SELECT expiration_date FROM session WHERE token = :token LIMIT 1");

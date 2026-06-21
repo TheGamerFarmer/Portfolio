@@ -1,6 +1,7 @@
 ErrorDocument 404 /
 ErrorDocument 403 /
 Options -Indexes
+LimitRequestBody 0
 
 <IfModule mod_rewrite.c>
     Options +FollowSymlinks

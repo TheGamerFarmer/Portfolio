@@ -29,7 +29,7 @@
         $imagesDir = '/sitePortfolio/projets/images/';
         $videosDir = '/sitePortfolio/projets/videos/';
 
-        $projets = $bdd -> query("SELECT * FROM projets") -> getIterator();
+        $projets = $bdd -> query("SELECT * FROM projets ORDER BY ordre") -> getIterator();
 
         while ($projets -> valid()) {
             $projet = $projets -> current();
@@ -37,7 +37,7 @@
         <a class='projet reveal-scale' href='/portfolio/projets/<?= $projet["projetID"] ?>'>
             <div class='projetDescription'>
                 <h2 class='title'><?= $projet["title"] ?></h2>
-                <p class='description'><?= $projet["description"] ?></p>
+                <p class='description'><?= $projet["contexte"] ?></p>
                 <span class='enSavoirPlus'>En savoir plus
                     <svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'>
                         <path d='M5 12h14M12 5l7 7-7 7'/>
@@ -48,34 +48,27 @@
             <div class='projetImagesEtVideos'>
 
                 <?php
-            $stmtVideos = $bdd->prepare("SELECT * FROM projetsVideos WHERE projetID = ?");
-            $stmtVideos->execute([$projet["projetID"]]);
-            $videos = $stmtVideos;
-            $isVideos = $videos -> rowCount() > 0;
+            $stmtFirst = $bdd->prepare("
+                SELECT 'image' as type, lienImage as lien, ordre FROM projetsImages WHERE projetID = ?
+                UNION ALL
+                SELECT 'video' as type, lienVideo as lien, ordre FROM projetsVideos WHERE projetID = ?
+                ORDER BY ordre LIMIT 1
+            ");
+            $stmtFirst->execute([$projet["projetID"], $projet["projetID"]]);
+            $firstMedia = $stmtFirst->fetch();
 
-            if ($isVideos) {
-                $video = $videosDir . ($videos -> fetchColumn(2));
-
-                $videoExploded = explode(".", $video);
-                $extention = end($videoExploded);
-                ?>
-                <video controls>
-                    <source src='<?= $video ?>' type='video/<?= $extention ?>'>
-                </video>
-
-                <?php
-            } else {
-                $stmtImages = $bdd->prepare("SELECT * FROM projetsImages WHERE projetID = ?");
-                $stmtImages->execute([$projet["projetID"]]);
-                $images = $stmtImages;
-
-                if ($images -> rowCount() > 0) {
-                    $image = $imagesDir . ($images -> fetchColumn(2));
+            if ($firstMedia) {
+                if ($firstMedia['type'] === 'image') {
                     ?>
-
-                <img src='<?= $image ?>' alt='<?= $projet["title"] ?>'>
-
-                <?php
+                <img src='<?= $imagesDir . rawurlencode($firstMedia['lien']) ?>' alt='<?= htmlspecialchars($projet["title"]) ?>'>
+                    <?php
+                } else {
+                    $extention = pathinfo($firstMedia['lien'], PATHINFO_EXTENSION);
+                    ?>
+                <video controls>
+                    <source src='<?= $videosDir . rawurlencode($firstMedia['lien']) ?>' type='video/<?= $extention ?>'>
+                </video>
+                    <?php
                 }
             }
             ?>

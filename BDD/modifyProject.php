@@ -1,20 +1,19 @@
 <?php
 require "BDD.php";
 require "librairie.php";
+require "isUserLoggedFunc.php";
 $bdd = connectDatabase();
 
 header('Content-Type: text/html; charset=UTF-8');
 
 $token = $_COOKIE['token'] ?? null;
 
-require_once "./isUserLoggedFunc.php";
-
 if (!isUserLogged($token) || !isset($_POST['projectID']))
     exit;
 
-$uploadDirImages = '../sitePortfolio/projets/images/';
+$uploadDirImages = __DIR__ . '/../sitePortfolio/projets/images/';
 $imagesNames = [];
-$uploadDirVideos = '../sitePortfolio/projets/videos/';
+$uploadDirVideos = __DIR__ . '/../sitePortfolio/projets/videos/';
 $videosNames = [];
 
 if (isset($_FILES['medias'])) {
@@ -30,55 +29,65 @@ if (isset($_FILES['medias'])) {
         if (str_starts_with($fileType, 'image')) {
             $targetFile = $uploadDirImages . $fileName;
             if (move_uploaded_file($tmpName, $targetFile)) {
-                $imagesNames[] = $fileName;
+                $imagesNames[$key] = $fileName;
             }
         } else if (str_starts_with($fileType, 'video')) {
             $targetFile = $uploadDirVideos . $fileName;
             if (move_uploaded_file($tmpName, $targetFile)) {
-                $videosNames[] = $fileName;
+                $videosNames[$key] = $fileName;
             }
         }
     }
 }
 
-$titre = sanitize($_POST["titre"]);
-$description = sanitize($_POST["description"]);
-$competences = sanitize($_POST["competences"]);
-$objectifs = sanitize($_POST["objectifs"]);
-$travailDeGroupe = sanitize($_POST["travailDeGroupe"]);
-$travailIndividuel = sanitize($_POST["travailIndividuel"]);
-$aquis = sanitize($_POST["aquis"]);
+$projectID = (int)$_POST["projectID"];
 
-$bdd -> query("UPDATE projets SET title = '$titre',
-               description = '$description',
-               competences = '$competences',
-               objectifs = '$objectifs',
-               travail_En_Groupe = '$travailDeGroupe',
-               travail_individuel = '$travailIndividuel',
-               savoir_Faire_Aquis = '$aquis'
-           WHERE projetID = {$_POST["projectID"]};");
+$stmt = $bdd->prepare("UPDATE projets SET title = ?, contexte = ?, technologies = ?, role = ?, defis = ? WHERE projetID = ?");
+$stmt->execute([urldecode($_POST["titre"]), urldecode($_POST["contexte"]), urldecode($_POST["technologies"]), urldecode($_POST["role"]), urldecode($_POST["defis"]), $projectID]);
 
-$oldMedias = array_merge($bdd -> query("SELECT * FROM projetsImages WHERE projetID = {$_POST["projectID"]};") -> fetchAll(),
-    $bdd -> query("SELECT * FROM projetsVideos WHERE projetID = {$_POST["projectID"]};") -> fetchAll());
+$oldMedias = array_merge(
+    $bdd->query("SELECT * FROM projetsImages WHERE projetID = $projectID;")->fetchAll(),
+    $bdd->query("SELECT * FROM projetsVideos WHERE projetID = $projectID;")->fetchAll()
+);
 
-forEach($oldMedias as $oldMedia) {
+$stmtDelImg = $bdd->prepare("DELETE FROM projetsImages WHERE projetID = ? AND lienImage = ?");
+$stmtDelVid = $bdd->prepare("DELETE FROM projetsVideos WHERE projetID = ? AND lienVideo = ?");
+
+foreach ($oldMedias as $oldMedia) {
     $lienMedia = $oldMedia[2];
 
-    if ( !isset($_POST["oldmedias"]) || !in_array($lienMedia, $_POST["oldmedias"])) {
+    if (!isset($_POST["oldmedias"]) || !in_array($lienMedia, $_POST["oldmedias"])) {
         if (file_exists($uploadDirImages . $lienMedia)) {
-            $bdd -> query("DELETE FROM projetsImages WHERE projetID = {$_POST["projectID"]} AND lienImage = '$lienMedia';");
+            $stmtDelImg->execute([$projectID, $lienMedia]);
             unlink($uploadDirImages . $lienMedia);
-        } else if (!isset($_POST["oldmedias"]) || file_exists($uploadDirVideos . $lienMedia)) {
-            $bdd -> query("DELETE FROM projetsVideos WHERE projetID = {$_POST["projectID"]} AND lienVideo = '$lienMedia';");
+        } else if (file_exists($uploadDirVideos . $lienMedia)) {
+            $stmtDelVid->execute([$projectID, $lienMedia]);
             unlink($uploadDirVideos . $lienMedia);
         }
     }
 }
 
-forEach($imagesNames as $image) {
-    $bdd -> query("INSERT INTO projetsImages (projetID, lienImage) VALUES ('{$_POST["projectID"]}', '$image')");
+if (isset($_POST["oldmedias"])) {
+    $stmtUpdImg = $bdd->prepare("UPDATE projetsImages SET ordre = ? WHERE projetID = ? AND lienImage = ?");
+    $stmtUpdVid = $bdd->prepare("UPDATE projetsVideos SET ordre = ? WHERE projetID = ? AND lienVideo = ?");
+    foreach ($_POST["oldmedias"] as $i => $oldMedia) {
+        $ordre = isset($_POST["oldmediasOrdres"][$i]) ? (int)$_POST["oldmediasOrdres"][$i] : $i;
+        if (file_exists($uploadDirImages . $oldMedia)) {
+            $stmtUpdImg->execute([$ordre, $projectID, $oldMedia]);
+        } else {
+            $stmtUpdVid->execute([$ordre, $projectID, $oldMedia]);
+        }
+    }
 }
 
-forEach($videosNames as $video) {
-    $bdd -> query("INSERT INTO projetsVideos (projetID, lienVideo) VALUES ('{$_POST["projectID"]}', '$video')");
+$stmtImg = $bdd->prepare("INSERT INTO projetsImages (projetID, lienImage, ordre) VALUES (?, ?, ?)");
+foreach ($imagesNames as $key => $image) {
+    $ordre = isset($_POST['mediasOrdres'][$key]) ? (int)$_POST['mediasOrdres'][$key] : $key;
+    $stmtImg->execute([$projectID, $image, $ordre]);
+}
+
+$stmtVid = $bdd->prepare("INSERT INTO projetsVideos (projetID, lienVideo, ordre) VALUES (?, ?, ?)");
+foreach ($videosNames as $key => $video) {
+    $ordre = isset($_POST['mediasOrdres'][$key]) ? (int)$_POST['mediasOrdres'][$key] : $key;
+    $stmtVid->execute([$projectID, $video, $ordre]);
 }

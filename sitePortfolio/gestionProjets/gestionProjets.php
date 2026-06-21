@@ -24,43 +24,43 @@ include("../header/header.php");
         <label for="titre">Titre :</label>
         <input id="titre" type="text" name="titre" placeholder="titre" required>
 
-        <label for="description">Description :</label>
-        <textarea id="description" name="description" placeholder="Description" required></textarea>
+        <label for="contexte">Contexte :</label>
+        <textarea id="contexte" name="contexte" placeholder="Contexte" required></textarea>
 
-        <label for="competences">Compétences :</label>
-        <textarea id="competences" name="competences" placeholder="Compétences" required></textarea>
+        <label for="technologies">Technologies utilisées :</label>
+        <textarea id="technologies" name="technologies" placeholder="Technologies utilisées" required></textarea>
 
-        <label for="objectifs">Objectifs :</label>
-        <textarea id="objectifs" name="objectifs" placeholder="Objectifs" required></textarea>
+        <label for="role">Mon rôle :</label>
+        <textarea id="role" name="role" placeholder="Mon rôle" required></textarea>
 
-        <label for="travailDeGroupe">Travail de groupe :</label>
-        <textarea id="travailDeGroupe" name="travailDeGroupe" placeholder="Travail de groupe" required></textarea>
-
-        <label for="travailIndividuel">Travail individuel dans le groupe :</label>
-        <textarea id="travailIndividuel" name="travailIndividuel" placeholder="Travail individuel dans le groupe" required></textarea>
-
-        <label for="aquis">Techniques et savoirs faire acquis :</label>
-        <textarea id="aquis" name="aquis" placeholder="Techniques et savoirs faire acquis" required></textarea>
+        <label for="defis">Défis techniques :</label>
+        <textarea id="defis" name="defis" placeholder="Défis techniques" required></textarea>
 
         <input id="fileInput" type="file" name="medias[]" accept="image/*,video/*" multiple>
         <button id="fileInputButton" type="button">Ajouter des images ou vidéos</button>
         <div id="preview"></div>
 
         <div id="buttons">
-            <input type="submit" value="Enregistrer">
+            <button id="submitBtn" type="submit">Enregistrer</button>
         </div>
     </form>
 
     <?php
     if (isset($_POST["titre"])) {
-        $uploadDirImages = '../projets/images/';
+        $uploadDirImages = __DIR__ . '/../projets/images/';
         $imagesNames = [];
-        $uploadDirVideos = '../projets/videos/';
+        $uploadDirVideos = __DIR__ . '/../projets/videos/';
         $videosNames = [];
 
         if (isset($_FILES['medias'])) {
             foreach ($_FILES['medias']['tmp_name'] as $key => $tmpName) {
                 $fileName = generateRandomString() . " " . basename($_FILES['medias']['name'][$key]);
+
+                if ($_FILES['medias']['error'][$key] === UPLOAD_ERR_INI_SIZE || $_FILES['medias']['error'][$key] === UPLOAD_ERR_FORM_SIZE) {
+                    http_response_code(413);
+                    echo "Le fichier \"" . basename($_FILES['medias']['name'][$key]) . "\" est trop volumineux.";
+                    exit;
+                }
 
                 if (empty($tmpName) || !file_exists($tmpName)) {
                     continue;
@@ -71,42 +71,33 @@ include("../header/header.php");
                 if (str_starts_with($fileType, 'image')) {
                     $targetFile = $uploadDirImages . $fileName;
                     if (move_uploaded_file($tmpName, $targetFile)) {
-                        $imagesNames[] = $fileName;
+                        $imagesNames[$key] = $fileName;
                     }
                 } else if (str_starts_with($fileType, 'video')) {
                     $targetFile = $uploadDirVideos . $fileName;
                     if (move_uploaded_file($tmpName, $targetFile)) {
-                        $videosNames[] = $fileName;
+                        $videosNames[$key] = $fileName;
                     }
                 }
             }
         }
 
-        $titre = sanitize($_POST["titre"]);
-        $description = sanitize($_POST["description"]);
-        $competences = sanitize($_POST["competences"]);
-        $objectifs = sanitize($_POST["objectifs"]);
-        $travailDeGroupe = sanitize($_POST["travailDeGroupe"]);
-        $travailIndividuel = sanitize($_POST["travailIndividuel"]);
-        $aquis = sanitize($_POST["aquis"]);
+        $nextOrdre = (int)$bdd->query("SELECT COALESCE(MAX(ordre) + 1, 0) FROM projets")->fetchColumn();
+        $stmt = $bdd->prepare("INSERT INTO projets (title, contexte, technologies, role, defis, ordre) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->execute([urldecode($_POST["titre"]), urldecode($_POST["contexte"]), urldecode($_POST["technologies"]), urldecode($_POST["role"]), urldecode($_POST["defis"]), $nextOrdre]);
 
-        $bdd -> query("INSERT INTO projets (title, description, competences, objectifs, travail_En_Groupe, travail_individuel, savoir_Faire_Aquis)
-            VALUES ('$titre',
-                    '$description',
-                    '$competences',
-                    '$objectifs',
-                    '$travailDeGroupe',
-                    '$travailIndividuel',
-                    '$aquis')");
+        $projectID = $bdd->lastInsertId();
 
-        $projectID = $bdd -> query("SELECT max(projetID) FROM projets") -> fetchColumn();
-
-        forEach($imagesNames as $image) {
-            $bdd -> query("INSERT INTO projetsImages (projetID, lienImage) VALUES ('$projectID', '$image')");
+        $stmtImg = $bdd->prepare("INSERT INTO projetsImages (projetID, lienImage, ordre) VALUES (?, ?, ?)");
+        foreach ($imagesNames as $key => $image) {
+            $ordre = isset($_POST['mediasOrdres'][$key]) ? (int)$_POST['mediasOrdres'][$key] : $key;
+            $stmtImg->execute([$projectID, $image, $ordre]);
         }
 
-        forEach($videosNames as $video) {
-            $bdd -> query("INSERT INTO projetsVideos (projetID, lienVideo) VALUES ('$projectID', '$video')");
+        $stmtVid = $bdd->prepare("INSERT INTO projetsVideos (projetID, lienVideo, ordre) VALUES (?, ?, ?)");
+        foreach ($videosNames as $key => $video) {
+            $ordre = isset($_POST['mediasOrdres'][$key]) ? (int)$_POST['mediasOrdres'][$key] : $key;
+            $stmtVid->execute([$projectID, $video, $ordre]);
         }
     }
     ?>
@@ -119,7 +110,7 @@ include("../header/header.php");
             $imagesDir = '/sitePortfolio/projets/images/';
             $videosDir = '/sitePortfolio/projets/videos/';
 
-            $projets = $bdd -> query("SELECT * FROM projets") -> getIterator();
+            $projets = $bdd -> query("SELECT * FROM projets ORDER BY ordre") -> getIterator();
 
             while ($projets -> valid()) {
                 $projet = $projets -> current();

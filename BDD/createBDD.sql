@@ -9,24 +9,24 @@ CREATE TABLE IF NOT EXISTS session (
 CREATE TABLE IF NOT EXISTS projets (
     projetID BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(250),
-    description VARCHAR(255),
-    competences VARCHAR(255),
-    objectifs VARCHAR(255),
-    travail_En_Groupe VARCHAR(255),
-    travail_individuel VARCHAR(255),
-    savoir_Faire_Aquis VARCHAR(255)
+    contexte TEXT,
+    technologies VARCHAR(255),
+    role TEXT,
+    defis TEXT
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS projetsvideos (
     videoID BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     projetID INT,
-    lienVideo VARCHAR(255)
+    lienVideo VARCHAR(255),
+    ordre INT DEFAULT 0
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS projetsimages (
     imageID BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     projetID INT,
-    lienImage VARCHAR(255)
+    lienImage VARCHAR(255),
+    ordre INT DEFAULT 0
 ) ENGINE=InnoDB;
 
 SET GLOBAL event_scheduler = ON;

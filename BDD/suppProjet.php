@@ -13,8 +13,8 @@ if (!isUserLogged($token) || !isset($_GET['id']))
 
 $bdd -> query("DELETE FROM projets WHERE projetID = " . $_GET['id']);
 
-$imagesDir = '/sitePortfolio/projets/images/';
-$videosDir = '/sitePortfolio/projets/videos/';
+$imagesDir = __DIR__ . '/../sitePortfolio/projets/images/';
+$videosDir = __DIR__ . '/../sitePortfolio/projets/videos/';
 
 $images = $bdd -> query("SELECT * FROM projetsImages WHERE projetID = " . $_GET['id']) -> getIterator();
 

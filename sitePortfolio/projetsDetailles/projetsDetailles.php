@@ -33,19 +33,22 @@ if ($queryAwser -> valid()) {
     </a>
     <div id='text'>
         <h1><?= $projet["title"] ?></h1>
-        <p id='description'><?= $projet["description"] ?></p>
-        <h2>Les compétences nécessaires:</h2>
-        <p id='competances'><?= $projet["competences"] ?></p>
-        <h2>Les objectifs du projet:</h2>
-        <p id='objectifs'><?= $projet["objectifs"] ?></p>
-        <h2>Les étapes du groupe:</h2>
-        <p id='travailGroupe'><?= $projet["travail_En_Groupe"] ?></p>
-        <h2>Ma partie du travail:</h2>
-        <p id='travailIndividuel'><?= $projet["travail_individuel"] ?></p>
-        <h2>Les savoirs faires aquis grâce à ce projet:</h2>
-        <p id='aquis'><?= $projet["savoir_Faire_Aquis"] ?></p>
+        <p id='contexte'><?= $projet["contexte"] ?></p>
+        <section>
+            <h2>Technologies utilisées</h2>
+            <p id='technologies'><?= $projet["technologies"] ?></p>
+        </section>
+        <section>
+            <h2>Mon rôle</h2>
+            <p id='role'><?= $projet["role"] ?></p>
+        </section>
+        <section>
+            <h2>Défis techniques</h2>
+            <p id='defis'><?= $projet["defis"] ?></p>
+        </section>
     </div>
     <div id='medias'>
+        <div id='mediaLoader'></div>
         <button class='control-btn' id='btnUp' onclick='slide(-1)'>
             <svg viewBox='0 0 24 24'><path d='M7 14l5-5 5 5z'/></svg>
         </button>
@@ -57,56 +60,54 @@ if ($queryAwser -> valid()) {
         $imagesDir = '/sitePortfolio/projets/images/';
         $videosDir = '/sitePortfolio/projets/videos/';
 
-        $stmtVideos = $bdd->prepare("SELECT * FROM projetsVideos WHERE projetID = ?");
-        $stmtVideos->execute([$projet["projetID"]]);
-        $videos = $stmtVideos->getIterator();
+        $stmtMedias = $bdd->prepare("
+            SELECT 'image' as type, lienImage as lien, ordre FROM projetsImages WHERE projetID = ?
+            UNION ALL
+            SELECT 'video' as type, lienVideo as lien, ordre FROM projetsVideos WHERE projetID = ?
+            ORDER BY ordre
+        ");
+        $stmtMedias->execute([$projet["projetID"], $projet["projetID"]]);
+        $medias = $stmtMedias->getIterator();
 
-        while ($videos -> valid()) {
-            $video = $videos -> current();
-
-            $videoLien = $videosDir . $video["lienVideo"];
-
-            $videoExploded = explode(".", $videoLien);
-            $extention = end($videoExploded);
-            ?>
-
+        while ($medias->valid()) {
+            $media = $medias->current();
+            if ($media['type'] === 'image') {
+                $imageLien = $imagesDir . rawurlencode($media['lien']);
+                ?>
+                <div class='media'>
+                    <img src='<?= $imageLien ?>' alt='<?= htmlspecialchars($media['lien']) ?>'>
+                </div>
+                <?php
+            } else {
+                $videoLien = $videosDir . rawurlencode($media['lien']);
+                $extention = pathinfo($media['lien'], PATHINFO_EXTENSION);
+                ?>
                 <div class='media'>
                     <video controls>
                         <source src='<?= $videoLien ?>' type='video/<?= $extention ?>'>
                         Votre navigateur ne supporte pas la vidéo.
                     </video>
                 </div>
-
-            <?php
-            $videos -> next();
-        }
-
-        $stmtImages = $bdd->prepare("SELECT * FROM projetsImages WHERE projetID = ?");
-        $stmtImages->execute([$projet["projetID"]]);
-        $images = $stmtImages->getIterator();
-
-        while ($images -> valid()) {
-            $image = $images -> current();
-
-            $imageLien = $imagesDir . ($image["lienImage"]);
-            ?>
-
-                <div class='media'>
-                    <img src='<?= $imageLien ?>' alt='<?= $imageLien ?>'>
-                </div>
-
-            <?php
-            $images -> next();
+                <?php
+            }
+            $medias->next();
         }
         ?>
             </div>
         </div>
+
+        <div id='counter'><span id='currentIdx'>1</span> / <span id='totalCount'>0</span></div>
 
         <button class='control-btn' id='btnDown' onclick='slide(1)'>
             <svg viewBox='0 0 24 24'><path d='M7 10l5 5 5-5z'/></svg>
         </button>
     </div>
 </main>
+
+<div id='lightbox'>
+    <button id='closeBtn' onclick='closeLightbox()'>✕</button>
+    <div id='lightboxContent'></div>
+</div>
 
 <?php
 } else {

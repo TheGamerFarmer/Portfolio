@@ -1,5 +1,7 @@
 <?php
-require_once "../../BDD/BDD.php";
+
+require_once __DIR__ . "/../../BDD/BDD.php";
+require_once __DIR__ . "/../../BDD/insertSession.php";
 
 $input = file_get_contents('php://input');
 $data = json_decode($input, true);
@@ -11,9 +13,7 @@ if (password_verify("Ceci est un sel Backend anudetndaput" . $clientHash . "Ceci
         $token = bin2hex(random_bytes(16));
         $expiration = time() + (24 * 3600);
 
-        $bdd = connectDatabase();
-        $stmt = $bdd->prepare("INSERT INTO session (token, expiration_date) VALUES (?, ?)");
-        $stmt->execute([$token, $expiration]);
+        insertSession($token, $expiration);
 
         setcookie("token",
             $token,
@@ -24,9 +24,9 @@ if (password_verify("Ceci est un sel Backend anudetndaput" . $clientHash . "Ceci
                 'samesite' => 'Strict'
             ]);
         echo "Connection réussit";
-    } catch (Exception $e) {
+    } catch (\Throwable $e) {
         http_response_code(500);
-        echo "Erreure serveur";
+        echo "Erreure serveur" . $e;
     }
 } else {
     http_response_code(401);
