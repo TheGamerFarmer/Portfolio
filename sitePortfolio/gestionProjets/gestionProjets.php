@@ -33,7 +33,7 @@ include("../header/header.php");
         <label for="role">Mon rôle :</label>
         <textarea id="role" name="role" placeholder="Mon rôle" required></textarea>
 
-        <label for="defis">Défis techniques :</label>
+        <label for="defis">Défis :</label>
         <textarea id="defis" name="defis" placeholder="Défis techniques" required></textarea>
 
         <input id="fileInput" type="file" name="medias[]" accept="image/*,video/*" multiple>

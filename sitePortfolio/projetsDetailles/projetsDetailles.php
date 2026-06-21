@@ -43,7 +43,7 @@ if ($queryAwser -> valid()) {
             <p id='role'><?= $projet["role"] ?></p>
         </section>
         <section>
-            <h2>Défis techniques</h2>
+            <h2>Défis</h2>
             <p id='defis'><?= $projet["defis"] ?></p>
         </section>
     </div>
