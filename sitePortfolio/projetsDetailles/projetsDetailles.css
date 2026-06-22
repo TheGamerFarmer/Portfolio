@@ -254,4 +254,5 @@ main #medias #viewport #mediaWrapper .media video {
     max-height: 100%;
     max-width: 100%;
     border-radius: 20px;
+    background-color: white;
 }
