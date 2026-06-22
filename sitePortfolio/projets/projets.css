@@ -99,4 +99,5 @@ main #projets .projet .projetImagesEtVideos video, main #projets .projet .projet
     max-width: 100%;
     max-height: 100%;
     border-radius: 20px;
+    background-color: white;
 }
