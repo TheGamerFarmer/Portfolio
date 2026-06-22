@@ -17,6 +17,12 @@ window.addEventListener("load", async () => {
         window.location.href = "/portfolio";
     }
 
+    const saveStatus = sessionStorage.getItem('saveStatus');
+    if (saveStatus) {
+        sessionStorage.removeItem('saveStatus');
+        showStatus(saveStatus, false);
+    }
+
     const fileInput = document.getElementById('fileInput');
     const buttonFileInput = document.getElementById("fileInputButton");
     preview = document.getElementById('preview');
@@ -53,6 +59,7 @@ window.addEventListener("load", async () => {
         fileInput.value = '';
     });
 
+    formulaire.addEventListener('input', clearStatus);
     formulaire.addEventListener('submit', submitAdd);
 
     const projetsContainer = document.getElementById('projets');
@@ -123,10 +130,13 @@ window.addEventListener("load", async () => {
         let id = button.id;
         if (id.startsWith("modifyProjet")) {
             button.addEventListener("click", () => {
+                clearStatus();
                 projetID = id.split(":").reverse().at(0);
                 fetch("/BDD/getProjet.php?id=" + projetID)
                     .then(res => res.json())
                     .then(json => {
+                        cancelModification();
+
                         document.body.scrollTop = 0;
                         document.documentElement.scrollTop = 0;
 
@@ -160,18 +170,9 @@ window.addEventListener("load", async () => {
                         cancelButton.textContent = "Annuler"
 
                         cancelButton.addEventListener("click", (e) => {
-                            e.preventDefault()
-                            document.body.scrollTop = 0;
-                            document.documentElement.scrollTop = 0;
-
-                            formulaire.removeEventListener("submit", submitModify);
-                            formulaire.addEventListener("submit", submitAdd);
-                            formulaire.reset()
-                            selectedFiles.length = 0;
-                            selectedFilesNames.length = 0;
-                            preview.innerHTML = '';
-                            cancelButton.remove()
-                        })
+                            e.preventDefault();
+                            cancelModification();
+                        });
 
                         children.namedItem("buttons").appendChild(cancelButton)
                     })
@@ -296,6 +297,23 @@ function showStatus(message, isError) {
     status.className = isError ? 'error' : 'success';
 }
 
+function clearStatus() {
+    const status = document.getElementById('submitStatus');
+    if (status) status.remove();
+}
+
+function cancelModification() {
+    const cancelButton = document.getElementById('cancelButton');
+    if (!cancelButton) return;
+    formulaire.removeEventListener("submit", submitModify);
+    formulaire.addEventListener("submit", submitAdd);
+    formulaire.reset();
+    selectedFiles.length = 0;
+    selectedFilesNames.length = 0;
+    preview.innerHTML = '';
+    cancelButton.remove();
+}
+
 function encodeTextFields(formData) {
     for (const field of ['titre', 'contexte', 'technologies', 'role', 'defis']) {
         const val = formData.get(field);
@@ -328,11 +346,7 @@ function submitAdd (e) {
                 showStatus(await res.text(), true);
                 return;
             }
-            showStatus('Enregistré !', false);
-            formulaire.reset();
-            selectedFiles.length = 0;
-            selectedFilesNames.length = 0;
-            preview.innerHTML = '';
+            sessionStorage.setItem('saveStatus', 'Enregistré !');
             window.location.reload();
         })
         .catch(err => {
@@ -375,11 +389,7 @@ function submitModify (e) {
                 showStatus(await res.text(), true);
                 return;
             }
-            showStatus('Enregistré !', false);
-            formulaire.reset();
-            selectedFiles.length = 0;
-            selectedFilesNames.length = 0;
-            preview.innerHTML = '';
+            sessionStorage.setItem('saveStatus', 'Enregistré !');
             window.location.reload();
         })
         .catch(err => {
