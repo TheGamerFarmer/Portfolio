@@ -109,7 +109,7 @@
         </div>
 
         <div class="langage reveal-scale stagger-4">
-            <img src="/sitePortfolio/aProposDeMoi/logoGit.png" alt="logo Git">
+            <img src="/sitePortfolio/aProposDeMoi/logoCC++.png" alt="logo C / C++">
         </div>
 
         <div class="langage reveal-scale stagger-5">
